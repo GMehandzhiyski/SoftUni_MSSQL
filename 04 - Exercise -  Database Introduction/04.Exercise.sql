@@ -78,15 +78,137 @@ CREATE TABLE [Users]
 	,[Username] VARCHAR(30) NOT NULL
 	,[Password] VARCHAR(26) NOT NULL
 	,[ProfilePicture] VARBINARY(MAX)
-	,[LastLoginTime] DATETIME2
+	,[LastLoginTime] DATETIME DEFAULT GETDATE()
 	,[IsDeleted] BIT
 )
 
 INSERT INTO [Users] ([Username], [Password])
-			VALUES ('Georgi', 'ggg')
-					,('Pesho', 'cgg')
-					,('Tosho', 'agg')
-					,('Georgi', 'sgg')
-					,('Ivan', 'hgg')
+			VALUES ('Georgi', 'gggggg')
+					,('Pesho', 'cgggggg')
+					,('Tosho', 'aggggg')
+					,('Georgi', 'sggggg')
+					,('Ivan', 'hgggggg')
+
+
+
+--09.	Change Primary Key
+ALTER TABLE [Users]
+DROP CONSTRAINT [PK__Users__3214EC075A69CD5C]
+
+ALTER TABLE [Users]
+ADD CONSTRAINT PK_UserTable PRIMARY KEY (Id, Username)
+
+--10.	Add Check Constraint
+ALTER TABLE [Users]
+ADD CONSTRAINT CHK_PasswordIsAtleastFiveSymbols
+				CHECK(LEN([Password]) >= 5)
+
+INSERT INTO [Users] ([Username], [Password])
+				VALUES ('pETKO', 'GGGGGGG')
+
+--11.	Set Default Value of a Field	
+UPDATE [Users]
+SET LastLoginTime = GETDATE()
+WHERE LastLoginTime IS NULL
+
+ INSERT INTO [Users] ([Username], [Password], [LastLoginTime])
+			VALUES ('GSSeorSSgi', 'gggggg', GETDATE())
 
 SELECT * FROM [Users]
+
+--12.	Set Unique Field
+
+ALTER TABLE [Users]
+DROP CONSTRAINT [PK_UserTable]
+
+ALTER TABLE[Users]
+ADD CONSTRAINT [PK_UserTable] PRIMARY KEY (Id)
+
+ALTER TABLE [Users]
+ADD CONSTRAINT CHK_UserNameLong3Symbols
+				CHECK (LEN([Username]) >= 3)
+
+INSERT INTO [Users] ([Username], [Password], [LastLoginTime])
+			VALUES ('Gsi', 'gggggg', GETDATE())
+
+
+--13.	Movies Database
+DROP TABLE[Directors]
+DROP TABLE[Genres]
+DROP TABLE[Categories]
+DROP TABLE [Movies]
+TRUNCATE TABLE[Directors]
+
+CREATE DATABASE [Movies]
+USE Movies
+GO
+
+CREATE TABLE [Directors] 
+(
+	[Id] INT PRIMARY KEY IDENTITY NOT NULL
+	,[DirectorName] VARCHAR(255)
+	,[Notes] VARCHAR(MAX)
+)
+
+CREATE TABLE [Genres]
+(
+	[Id] INT PRIMARY KEY IDENTITY NOT NULL
+	,[GenerName] VARCHAR(255)
+	,[Notes] VARCHAR(MAX)
+)
+
+CREATE TABLE [Categories] 
+(
+	[Id] INT PRIMARY KEY IDENTITY NOT NULL
+	,[CategoryName] VARCHAR(255)
+	,[Notes] VARCHAR(MAX)
+)
+
+CREATE TABLE [Movies]  
+(
+	[Id] INT IDENTITY NOT NULL
+	,[Title] VARCHAR(50)
+	,[DirectorId] INT FOREIGN KEY REFERENCES [Directors](Id)
+	,[CopyrightYear] SMALLINT
+	,[Length] FLOAT
+	,[GenreId] INT  FOREIGN KEY REFERENCES [Genres](Id)
+	,[CategoryId] INT FOREIGN KEY REFERENCES [Categories](Id)
+	,[Rating] DECIMAL(3,1)
+	,[Notes] VARCHAR(MAX)
+)
+
+INSERT INTO [Directors] ([DirectorName], [Notes])
+		VALUES 
+		('IVAN iVANOV', NULL)
+		,('dRAGAN iVANOV', 'ASDASD' )
+		,('STEFAN iVANOV', 'ASDASASDSAD')
+		,('PETYR PETROV', 'ASDADSASASAD')
+		,('TSVETOMIV P', 'SADASDA')
+
+INSERT INTO [Genres] ([GenerName])
+		VALUES 
+		('FUNNY')
+		,('SCARE' )
+		,('ACTION')
+		,('HISTORYCAL')
+		,('COMEDDY')
+
+INSERT INTO [Categories] ([CategoryName])
+		VALUES 
+		('ANIMAL')
+		,('WOMAN' )
+		,('MEN')
+		,('KID')
+		,('ALL')
+
+INSERT INTO [Movies] ([Title], [DirectorId], [CopyrightYear], [Length], [GenreId], [CategoryId], [Rating], [Notes])
+		VALUES
+		('MOVIE 1', 1, 1990, 60, 1, 1, 1.2, 'sas')
+		,('MOVIE 2', 2, 1990, 70, 2, 2, 2.3, 'sas')
+		,('MOVIE 3', 3, 1992, 80, 3, 3, 3.4, 'sas')
+		,('MOVIE 4', 4, 1993, 90, 4, 4, 4.5, 'sas')
+		,('MOVIE 5', 5, 1994, 100, 5, 5, 5.6, 'sas')
+
+
+SELECT * FROM [Movies]
+TRUNCATE TABLE Movies
