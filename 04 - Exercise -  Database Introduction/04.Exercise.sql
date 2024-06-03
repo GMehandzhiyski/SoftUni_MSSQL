@@ -42,7 +42,8 @@
   --06. Drop All Tables
   DROP TABLE [Minions]
   DROP TABLE [Towns]
-	DROP TABLE[People]
+	--DROP TABLE[People]
+
   --07. Create Table People
 CREATE TABLE [People]
   (
@@ -66,4 +67,26 @@ INSERT INTO [People] ([Name], [Gender], [Birthdate])
 
 
 SELECT * FROM [People]
-DROP TABLE[People]
+DROP TABLE[People] 
+
+
+--08.	Create Table Users
+TRUNCATE TABLE [Users]
+CREATE TABLE [Users]
+(
+	[Id] BIGINT PRIMARY KEY IDENTITY(1, 1)
+	,[Username] VARCHAR(30) NOT NULL
+	,[Password] VARCHAR(26) NOT NULL
+	,[ProfilePicture] VARBINARY(MAX)
+	,[LastLoginTime] DATETIME2
+	,[IsDeleted] BIT
+)
+
+INSERT INTO [Users] ([Username], [Password])
+			VALUES ('Georgi', 'ggg')
+					,('Pesho', 'cgg')
+					,('Tosho', 'agg')
+					,('Georgi', 'sgg')
+					,('Ivan', 'hgg')
+
+SELECT * FROM [Users]
