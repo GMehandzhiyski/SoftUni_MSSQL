@@ -215,98 +215,289 @@ TRUNCATE TABLE Movies
 
 
 --14.	Car Rental Database-----------------------------------------------------------------------------------------
-CREATE DATABASE [CarRental] 
---USE CarRental
---GO
-
-DROP DATABASE [CarRental]
-
---CREATE TABLE [Categories]
---(
---	[Id] INT PRIMARY KEY IDENTITY
---	,[CategoryName]  VARCHAR(255)
---	,[DailyRate] INT
---	,[WeeklyRate] INT
---	,[MonthlyRate] INT
---	,[Weeked=ndRate] INT
---)
-
---CREATE TABLE [Cars]
---(
---	[Id] INT PRIMARY KEY IDENTITY
---	,[PlateNumber]  VARCHAR(255)
---	,[Manufacturer] VARCHAR (255)
---	,[Model] VARCHAR (255)
---	,[CategoryId] INT FOREIGN KEY REFERENCES [Categories](Id)
---	,[Doors] INT
---	,[Pictures] VARBINARY(MAX)
---	,[Condition] INT
---	,[Available] BIT
---)
-
---CREATE TABLE [Employees]
---(
---	[Id] INT PRIMARY KEY IDENTITY
---	,[FirstName] VARCHAR(255)
---	,[LastName] VARCHAR(255)
---	,[Title] VARCHAR(255)
---	,[Notes] VARCHAR(MAX)
---)
+CREATE DATABASE [CarRental1] 
+USE CarRental1
+GO
 
 
---CREATE TABLE [Customers]
---(
---	[Id] INT PRIMARY KEY IDENTITY
---	,[DriverLicenceNumber] INT 
---	,[FullName] VARCHAR(255)
---	,[Address] VARCHAR(255)
---	,[City] VARCHAR(255)
---	,[ZIPCode] INT 
---	,[Notes] VARCHAR(MAX)
---)
+CREATE TABLE [Categories]
+(
+	[Id] INT PRIMARY KEY IDENTITY
+	,[CategoryName]  VARCHAR(255)
+	,[DailyRate] INT
+	,[WeeklyRate] INT
+	,[MonthlyRate] INT
+	,[Weeked=ndRate] INT
+)
 
-----CREATE TABLE [RentalOrders]
-----(
-----	[Id] INT PRIMARY KEY IDENTITY
-----	,[EmployeeId] INT FOREIGN KEY REFERENCES [Employees](Id)
-----	,[CustomerId] INT FOREIGN KEY REFERENCES [Customers](Id)
-----	,[CarId] INT FOREIGN KEY REFERENCES [Cars](Id)
-----	,[TankLevel] FLOAT
-----	,[KilometrageStart]INT
-----	,[KilometrageEnd] INT
-----	,[TotalKilometrage] INT
-----	,[StartDate] DATETIME2
-----	,[EndDate] DATETIME2
-----	,[TotalDays] INT
-----	,[RateApplied] INT
-----	,[TaxRate] FLOAT
-----	,[OrderStatus] VARCHAR
-----	,[Notes] VARCHAR
-----)
+CREATE TABLE [Cars]
+(
+	[Id] INT PRIMARY KEY IDENTITY
+	,[PlateNumber]  VARCHAR(255)
+	,[Manufacturer] VARCHAR (255)
+	,[Model] VARCHAR (255)
+	,[CategoryId] INT FOREIGN KEY REFERENCES [Categories](Id)
+	,[Doors] INT
+	,[Pictures] VARBINARY(MAX)
+	,[Condition] INT
+	,[Available] BIT
+)
 
---INSERT INTO [Categories] ([CategoryName], [MonthlyRate])
---		VALUES
---			('CAR', 200)
---			,('TRUCK', 300)
---			,('BUS', 500)
+CREATE TABLE [Employees]
+(
+	[Id] INT PRIMARY KEY IDENTITY
+	,[FirstName] VARCHAR(255)
+	,[LastName] VARCHAR(255)
+	,[Title] VARCHAR(255)
+	,[Notes] VARCHAR(MAX)
+)
 
 
---INSERT INTO [Cars]  ([PlateNumber], [Model], [CategoryId], [Doors], [Condition])
---		VALUES
---			('SC2345MV', 'VW', 1 , 2 ,5)
---			,('CB4519KM', 'CITROEN', 2, 4, 10)
---			,('PB2920IC','MAN', 3, 3, 20)
+CREATE TABLE [Customers]
+(
+	[Id] INT PRIMARY KEY IDENTITY
+	,[DriverLicenceNumber] INT 
+	,[FullName] VARCHAR(255)
+	,[Address] VARCHAR(255)
+	,[City] VARCHAR(255)
+	,[ZIPCode] INT 
+	,[Notes] VARCHAR(MAX)
+)
 
---INSERT INTO [Employees]([FirstName], [LastName])
---		VALUES
---			('IVAN', 'IVANOV')
---			,('PETYR', 'PETROV')
---			,('STOYAN', 'GEORGIEV')
+CREATE TABLE [RentalOrders]
+(
+	[Id] INT PRIMARY KEY IDENTITY
+	,[EmployeeId] INT FOREIGN KEY REFERENCES [Employees](Id)
+	,[CustomerId] INT FOREIGN KEY REFERENCES [Customers](Id)
+	,[CarId] INT FOREIGN KEY REFERENCES [Cars](Id)
+	,[TankLevel] FLOAT
+	,[KilometrageStart]INT
+	,[KilometrageEnd] INT
+	,[TotalKilometrage] INT
+	,[StartDate] DATETIME2
+	,[EndDate] DATETIME2
+	,[TotalDays] INT
+	,[RateApplied] INT
+	,[TaxRate] FLOAT
+	,[OrderStatus] VARCHAR
+	,[Notes] VARCHAR
+)
 
---INSERT INTO [Customers]([DriverLicenceNumber], [FullName],[ZIPCode]) 
---		VALUES
---			(1234, 'IVAN IVANOV', 4000)
---			,(5234, 'PETYR IVANOV', 4012)
---			,(1324, 'PETYR PETROV', 1000)
+INSERT INTO [Categories] ([CategoryName], [MonthlyRate])
+		VALUES
+			('CAR', 200)
+			,('TRUCK', 300)
+			,('BUS', 500)
 
---SELECT * FROM Employees
+
+INSERT INTO [Cars]  ([PlateNumber], [Model], [CategoryId], [Doors], [Condition])
+		VALUES
+			('SC2345MV', 'VW', 1 , 2 ,5)
+			,('CB4519KM', 'CITROEN', 2, 4, 10)
+			,('PB2920IC','MAN', 3, 3, 20)
+
+INSERT INTO [Employees]([FirstName], [LastName])
+		VALUES
+			('IVAN', 'IVANOV')
+			,('PETYR', 'PETROV')
+			,('STOYAN', 'GEORGIEV')
+
+INSERT INTO [Customers]([DriverLicenceNumber], [FullName],[ZIPCode]) 
+		VALUES
+			(1234, 'IVAN IVANOV', 4000)
+			,(5234, 'PETYR IVANOV', 4012)
+			,(1324, 'PETYR PETROV', 1000)
+
+INSERT INTO [RentalOrders]([EmployeeId], [CustomerId], [CarId], [TankLevel], [KilometrageStart], [TotalDays], [TaxRate])
+		VALUES 
+			(1, 1, 1, 100, 200, 3, 300.0)
+			,(2, 2, 2, 200, 300, 4, 400.0)
+			,(3, 3, 3, 300, 400, 5, 500.0)
+
+SELECT * FROM [RentalOrders]
+
+
+--15. Hotel Database-----------------------------------------------------------------------------------------------------------------------------
+CREATE DATABASE [Hotel]
+USE [Hotel]
+GO
+
+CREATE TABLE [Employees]
+(
+	[Id] INT PRIMARY KEY IDENTITY
+	,[FirstName] VARCHAR(255)
+	,[LastName] VARCHAR(255)
+	,[Title] VARCHAR(255)
+	,[Notes] VARCHAR(MAX)
+)
+
+
+
+CREATE TABLE [Customers] 
+(
+	[AccountNumber] INT PRIMARY KEY IDENTITY
+	,[FirstName] VARCHAR(255)
+	,[LastName] VARCHAR(255)
+	,[PhoneNumber] INT
+	,[EmergencyName] VARCHAR(255)
+	,[EmergencyNumber] INT
+	,[Notes] VARCHAR(255)
+)
+
+
+
+
+CREATE TABLE [RoomStatus]
+(
+	[RoomStatus] CHAR (4)
+					CHECK([RoomStatus] IN('busy', 'free'))
+	,[Notes] VARCHAR(255)
+)
+
+
+CREATE TABLE[RoomTypes]
+(
+	[RoomType] CHAR (1)
+					CHECK([RoomType] IN('A', 'S', 'R'))
+	,[Notes] VARCHAR(255)
+)
+
+
+CREATE TABLE [BedTypes]
+(
+	[BedType] CHAR (8)
+				CHECK ([BedType] IN ('1 person','2 person', '3 person'))
+	,[Notes] VARCHAR(255)
+)
+
+
+CREATE TABLE [Rooms]
+(
+	[RoomNumber] INT
+	,[RoomType] CHAR (1)
+	,[BedType] CHAR (8)
+	,[Rate] FLOAT
+	,[RoomStatus] CHAR(4)
+	,[Notes] VARCHAR(255)
+
+)
+
+
+
+CREATE TABLE [Payments]
+(
+	[Id] INT PRIMARY KEY IDENTITY
+	,[EmployeeId] INT FOREIGN KEY REFERENCES [Employees](Id)
+	,[PaymentDate] DATETIME2
+	,[AccountNumber] INT
+	,[FirstDateOccupied] DATETIME2
+	,[LastDateOccupied] DATETIME2
+	,[TotalDays] INT
+	,[AmountCharged] DECIMAL(5,2)
+	,[TaxRate] DECIMAL(5,2)
+	,[TaxAmount] DECIMAL(5,2)
+	,[PaymentTotal] DECIMAL(5,2)
+	,[Notes] VARCHAR(255)
+)
+
+
+
+CREATE TABLE[Occupancies]
+(
+	[Id] INT PRIMARY KEY IDENTITY
+	,[EmployeeId] INT FOREIGN KEY REFERENCES [Employees](Id)
+	,[DateOccupied] DATETIME2
+	,[AccountNumber] INT
+	,[RoomNumber] INT
+	,[RateApplied] DECIMAL(2,1)
+	,[PhoneCharge] DECIMAL(2,1)
+	,[Notes] VARCHAR(255)
+)
+INSERT INTO [Employees] ([FirstName], [LastName])
+		VALUES 
+			('IVAN', 'IVANOV')
+			,('PETYR', 'PETROV')
+			,('GEORGI', 'GEORGIEV')
+
+INSERT INTO [Customers] ([FirstName], [LastName], [PhoneNumber])
+		VALUES
+			('ivan', 'ivanov', 093928)
+			,('petyr', 'petrov', 989879)
+			,('georgi', 'georgiev', 0932339)
+
+INSERT INTO[RoomStatus] ([RoomStatus])
+		VALUES 
+			('busy')
+			, ('free')
+
+INSERT INTO[RoomTypes] ([RoomType], [Notes])
+		VALUES 
+			('A', 'APARTAMENT')
+			, ('S', 'STUDIO')
+			,('R', 'ROOM')
+
+INSERT INTO[BedTypes] ([BedType])
+		VALUES 
+			('1 person')
+			, ('2 person')
+			,('3 person')
+
+INSERT INTO [Rooms]([RoomNumber], [RoomType], [BedType], [RoomStatus])
+		VALUES
+			(12, 'A', '1 person', 'free')
+			,(13, 'S', '2 person', 'busy')
+			,(14, 'R', '1 person', 'free')
+
+			
+INSERT INTO [Payments] ([EmployeeId], [AccountNumber], [TotalDays], [AmountCharged], [PaymentTotal])
+		VALUES
+			(1, 123, 5, 234.32, 340.45)
+			,(2, 124, 6, 236.32, 345.45)
+			,(3, 125, 7, 238.32, 350.45)
+
+INSERT INTO [Occupancies]([EmployeeId],[AccountNumber],[RoomNumber], [RateApplied],  [PhoneCharge])
+		VALUES 
+			(1, 2323, 12, 2.1, 5.1)
+			,(1, 4523, 13, 5.1, 8.1)
+			,(1, 5523, 13, 7.1, 9.1)
+
+SELECT * FROM [Occupancies]
+
+
+--16.	Create SoftUni Database------------------------------------------------------------------------------------------------
+CREATE DATABASE [SoftUni]
+USE SoftUni
+GO
+
+CREATE TABLE [Towns]
+(
+	[Id] INT PRIMARY KEY IDENTITY(1,1)
+	,[Name] VARCHAR(255)
+)
+
+CREATE TABLE [Addresses]
+(
+	[Id] INT PRIMARY KEY IDENTITY(1,1)
+	,[AddressText] VARCHAR(255)
+	,[TownId] INT FOREIGN KEY REFERENCES [Towns](Id)
+)
+
+CREATE TABLE [Departments]
+(
+	[Id] INT PRIMARY KEY IDENTITY(1,1)
+	,[Name] VARCHAR(255)
+)
+
+CREATE TABLE [Employees]
+(
+	[Id] INT PRIMARY KEY IDENTITY(1,1)
+	,[FirstName] VARCHAR(255)
+	,[MidlleName] VARCHAR(255)
+	,[LastName] VARCHAR(255)
+	,[JobTitle] VARCHAR(255)
+	,[DepartmentId] INT FOREIGN KEY REFERENCES [Departments](Id)
+	,[HireDate] VARCHAR(255)
+	,[Salary] DECIMAL(6,2)
+	,[AddressId] INT FOREIGN KEY REFERENCES [Addresses](Id)
+
+)
