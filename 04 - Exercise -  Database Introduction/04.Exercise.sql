@@ -212,3 +212,101 @@ INSERT INTO [Movies] ([Title], [DirectorId], [CopyrightYear], [Length], [GenreId
 
 SELECT * FROM [Movies]
 TRUNCATE TABLE Movies
+
+
+--14.	Car Rental Database-----------------------------------------------------------------------------------------
+CREATE DATABASE [CarRental] 
+--USE CarRental
+--GO
+
+DROP DATABASE [CarRental]
+
+--CREATE TABLE [Categories]
+--(
+--	[Id] INT PRIMARY KEY IDENTITY
+--	,[CategoryName]  VARCHAR(255)
+--	,[DailyRate] INT
+--	,[WeeklyRate] INT
+--	,[MonthlyRate] INT
+--	,[Weeked=ndRate] INT
+--)
+
+--CREATE TABLE [Cars]
+--(
+--	[Id] INT PRIMARY KEY IDENTITY
+--	,[PlateNumber]  VARCHAR(255)
+--	,[Manufacturer] VARCHAR (255)
+--	,[Model] VARCHAR (255)
+--	,[CategoryId] INT FOREIGN KEY REFERENCES [Categories](Id)
+--	,[Doors] INT
+--	,[Pictures] VARBINARY(MAX)
+--	,[Condition] INT
+--	,[Available] BIT
+--)
+
+--CREATE TABLE [Employees]
+--(
+--	[Id] INT PRIMARY KEY IDENTITY
+--	,[FirstName] VARCHAR(255)
+--	,[LastName] VARCHAR(255)
+--	,[Title] VARCHAR(255)
+--	,[Notes] VARCHAR(MAX)
+--)
+
+
+--CREATE TABLE [Customers]
+--(
+--	[Id] INT PRIMARY KEY IDENTITY
+--	,[DriverLicenceNumber] INT 
+--	,[FullName] VARCHAR(255)
+--	,[Address] VARCHAR(255)
+--	,[City] VARCHAR(255)
+--	,[ZIPCode] INT 
+--	,[Notes] VARCHAR(MAX)
+--)
+
+----CREATE TABLE [RentalOrders]
+----(
+----	[Id] INT PRIMARY KEY IDENTITY
+----	,[EmployeeId] INT FOREIGN KEY REFERENCES [Employees](Id)
+----	,[CustomerId] INT FOREIGN KEY REFERENCES [Customers](Id)
+----	,[CarId] INT FOREIGN KEY REFERENCES [Cars](Id)
+----	,[TankLevel] FLOAT
+----	,[KilometrageStart]INT
+----	,[KilometrageEnd] INT
+----	,[TotalKilometrage] INT
+----	,[StartDate] DATETIME2
+----	,[EndDate] DATETIME2
+----	,[TotalDays] INT
+----	,[RateApplied] INT
+----	,[TaxRate] FLOAT
+----	,[OrderStatus] VARCHAR
+----	,[Notes] VARCHAR
+----)
+
+--INSERT INTO [Categories] ([CategoryName], [MonthlyRate])
+--		VALUES
+--			('CAR', 200)
+--			,('TRUCK', 300)
+--			,('BUS', 500)
+
+
+--INSERT INTO [Cars]  ([PlateNumber], [Model], [CategoryId], [Doors], [Condition])
+--		VALUES
+--			('SC2345MV', 'VW', 1 , 2 ,5)
+--			,('CB4519KM', 'CITROEN', 2, 4, 10)
+--			,('PB2920IC','MAN', 3, 3, 20)
+
+--INSERT INTO [Employees]([FirstName], [LastName])
+--		VALUES
+--			('IVAN', 'IVANOV')
+--			,('PETYR', 'PETROV')
+--			,('STOYAN', 'GEORGIEV')
+
+--INSERT INTO [Customers]([DriverLicenceNumber], [FullName],[ZIPCode]) 
+--		VALUES
+--			(1234, 'IVAN IVANOV', 4000)
+--			,(5234, 'PETYR IVANOV', 4012)
+--			,(1324, 'PETYR PETROV', 1000)
+
+--SELECT * FROM Employees
