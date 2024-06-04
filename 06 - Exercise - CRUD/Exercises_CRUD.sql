@@ -22,4 +22,10 @@ FROM Employees
 --07.
 SELECT DISTINCT [Salary]
 FROM Employees
-	
+
+--08.
+SELECT *
+FROM Employees
+WHERE [JobTitle] =  'Sales Representative'
+
+--09
