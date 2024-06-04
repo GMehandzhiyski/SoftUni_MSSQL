@@ -208,14 +208,14 @@ INSERT INTO [Movies] ([Title], [DirectorId], [CopyrightYear], [Length], [GenreId
 		,('MOVIE 3', 3, 1992, 80, 3, 3, 3.4, 'sas')
 		,('MOVIE 4', 4, 1993, 90, 4, 4, 4.5, 'sas')
 		,('MOVIE 5', 5, 1994, 100, 5, 5, 5.6, 'sas')
+04 - Exercise - Database Introduction\04.Exercise.sql
 
+@@ -212,3 +212,101 @@ INSERT INTO [Movies] ([Title], [DirectorId], [CopyrightYear], [Length], [GenreId
 
 SELECT * FROM [Movies]
 TRUNCATE TABLE Movies
 
-
---14.	Car Rental Database-----------------------------------------------------------------------------------------
-CREATE DATABASE [CarRental1] 
+@@ -219,7 +11,6 @@ CREATE DATABASE [CarRental1]
 USE CarRental1
 GO
 
@@ -223,43 +223,9 @@ GO
 CREATE TABLE [Categories]
 (
 	[Id] INT PRIMARY KEY IDENTITY
-	,[CategoryName]  VARCHAR(255)
-	,[DailyRate] INT
-	,[WeeklyRate] INT
-	,[MonthlyRate] INT
-	,[Weeked=ndRate] INT
-)
-
-CREATE TABLE [Cars]
-(
-	[Id] INT PRIMARY KEY IDENTITY
-	,[PlateNumber]  VARCHAR(255)
-	,[Manufacturer] VARCHAR (255)
-	,[Model] VARCHAR (255)
-	,[CategoryId] INT FOREIGN KEY REFERENCES [Categories](Id)
-	,[Doors] INT
-	,[Pictures] VARBINARY(MAX)
-	,[Condition] INT
-	,[Available] BIT
-)
-
-CREATE TABLE [Employees]
-(
-	[Id] INT PRIMARY KEY IDENTITY
-	,[FirstName] VARCHAR(255)
-	,[LastName] VARCHAR(255)
-	,[Title] VARCHAR(255)
-	,[Notes] VARCHAR(MAX)
-)
 
 
-CREATE TABLE [Customers]
-(
-	[Id] INT PRIMARY KEY IDENTITY
-	,[DriverLicenceNumber] INT 
-	,[FullName] VARCHAR(255)
-	,[Address] VARCHAR(255)
-	,[City] VARCHAR(255)
+@@ -263,241 +54,3 @@ CREATE TABLE [Customers]
 	,[ZIPCode] INT 
 	,[Notes] VARCHAR(MAX)
 )
@@ -496,8 +462,65 @@ CREATE TABLE [Employees]
 	,[LastName] VARCHAR(255)
 	,[JobTitle] VARCHAR(255)
 	,[DepartmentId] INT FOREIGN KEY REFERENCES [Departments](Id)
-	,[HireDate] VARCHAR(255)
+	,[HireDate] DATETIME2
 	,[Salary] DECIMAL(6,2)
 	,[AddressId] INT FOREIGN KEY REFERENCES [Addresses](Id)
 
 )
+--18.	Basic Insert---------------------------------------------------------------------------------------------
+INSERT INTO [Towns]([Name])
+		VALUES 
+			('Sofia')
+			,('Plovdiv')
+			,('Varna')
+			,('Burgas')
+
+INSERT INTO [Departments]([Name])
+		VALUES 
+			('Engineering')
+			,('Sales')
+			,('Marketing')
+			,('Software Development')
+			,('Quality Assurance')
+
+INSERT INTO [Employees]([FirstName], [MidlleName], [LastName], [JobTitle], [DepartmentId], [HireDate], [Salary])
+		VALUES 
+			('Ivan','Ivanov', 'Ivanov','.NET Developer', 4, '2013-02-01', 3500.00)
+			,('Petar','Petrov', 'Petrov','Senior Engineer', 1, '2004-03-02', 4000.00)
+			,('Maria','Petrova', 'Ivanova','Intern', 5, '2016-08-28', 525.25)
+			,('Georgi','Terziev', 'Ivanov','CEO', 2, '2007-12-09', 3000.00)
+			,('Peter','Pan', 'Pan','Intern', 3, '2016-08-28', 599.00)
+
+select * from [Towns]
+select * from [Departments]
+select * from [Employees]
+--20.	Basic Select All Fields and Order Them---------------------------------------------------------------------------
+SELECT [Name]
+FROM [Towns]
+ORDER BY [Name] ASC;
+
+SELECT [Name]
+FROM [Departments]
+ORDER BY [Name] ASC;
+
+SELECT [Salary]
+FROM [Employees]
+ORDER BY [Salary] DESC;
+--21.	Basic Select Some Fields-----------------------------------------------------------------------------------------------
+SELECT [Name] FROM [Towns]
+SELECT [Name] FROM [Departments]
+SELECT [FirstName], [LastName],[JobTitle], [Salary] FROM [Employees]
+--22.	Increase Employees Salary--------------------------------------------------------------------------------------------
+UPDATE [Employees]
+SET Salary = Salary * 1.1
+
+
+SELECT [Salary] FROM [Employees]
+
+--23.	Decrease Tax Rate------------------------------------------------------------------------------------------------------------
+UPDATE [Payments]
+SET [TaxRate] = [TaxRate] * 0.97;
+SELECT [TaxRate] FROM [Payments]
+
+--24.	Delete All Records-----------------------------------------------------------------------------------------------------------
+TRUNCATE TABLE [Occupancies]
