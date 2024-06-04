@@ -134,3 +134,16 @@ WHERE [ContinentCode] = 'EU'
 ORDER BY [Population] DESC,
 		[CountryName] 
 
+--24.
+SELECT [CountryName], [CountryCode], 
+CASE 
+	WHEN [CurrencyCode] = 'EUR' THEN ' Euro'
+	ELSE 'Not Euro'
+END AS  Cyrrency
+FROM [Countries]
+ORDER BY [CountryName]
+
+--25.
+SELECT [Name]
+FROM [Characters]
+ORDER BY [Name] 
