@@ -33,3 +33,13 @@ SELECT [FirstName], [LastName], [JobTitle]
 From Employees
 WHERE [Salary] >= 20000
 		AND [Salary] <= 30000
+
+--10.
+SELECT 
+	CONCAT_WS(' ', [FirstName], [MiddleName], [LastName]) AS 'Full Name'
+FROM Employees
+WHERE [Salary] = 25000
+		OR [Salary] = 14000
+		OR [Salary] = 12500
+		OR [Salary] = 23600
+			
