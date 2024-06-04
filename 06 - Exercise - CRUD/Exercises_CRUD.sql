@@ -85,3 +85,7 @@ CREATE VIEW "V_EmployeeNameJobTitle"  AS
 	CONCAT ([FirstName], ' ', COALESCE([MiddleName], ''), ' ', [LastName]) AS 'Full Name', [JobTitle]
 	FROM [Employees]
 )
+
+--18.
+SELECT DISTINCT [JobTitle]
+FROM [Employees]
