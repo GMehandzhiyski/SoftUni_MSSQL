@@ -29,3 +29,7 @@ FROM Employees
 WHERE [JobTitle] =  'Sales Representative'
 
 --09
+SELECT [FirstName], [LastName], [JobTitle]
+From Employees
+WHERE [Salary] >= 20000
+		AND [Salary] <= 30000
