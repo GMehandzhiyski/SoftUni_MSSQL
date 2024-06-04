@@ -101,3 +101,27 @@ SELECT TOP(7)
 	[FirstName], [LastName], [HireDate]
 FROM [Employees]
 ORDER BY [HireDate] DESC
+
+--21.
+-- 1, 2, 4, 11
+
+BEGIN TRANSACTION
+UPDATE
+[Employees]
+SET [Salary] = [Salary] * 1.12
+WHERE [DepartmentId] IN(1, 2, 4, 11)
+
+SELECT [Salary]
+FROM [Employees]
+WHERE [DepartmentId] IN(1, 2, 4, 11)
+
+ROLLBACK TRANSACTION
+
+SELECT [Salary]
+FROM [Employees]
+WHERE [DepartmentId] IN(1, 2, 4, 11)
+
+--22.
+SELECT [PeakName]
+FROM [Peaks]
+ORDER BY [PeakName]
