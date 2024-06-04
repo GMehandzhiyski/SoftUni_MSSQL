@@ -30,16 +30,20 @@ WHERE [JobTitle] =  'Sales Representative'
 
 --09
 SELECT [FirstName], [LastName], [JobTitle]
-From Employees
+From [Employees]
 WHERE [Salary] >= 20000
 		AND [Salary] <= 30000
 
 --10.
 SELECT 
 	CONCAT_WS(' ', [FirstName], [MiddleName], [LastName]) AS 'Full Name'
-FROM Employees
+FROM [Employees]
 WHERE [Salary] = 25000
 		OR [Salary] = 14000
 		OR [Salary] = 12500
 		OR [Salary] = 23600
-			
+
+--11.
+SELECT [FirstName], [LastName]
+FROM [Employees]
+WHERE [ManagerID] IS NULL
