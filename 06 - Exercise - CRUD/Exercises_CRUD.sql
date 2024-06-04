@@ -19,3 +19,7 @@ SELECT
 	CONCAT([FirstName],'.',[LastName],'@softuni.bg') AS 'Full Email Address'
 FROM Employees
 
+--07.
+SELECT DISTINCT [Salary]
+FROM Employees
+	
