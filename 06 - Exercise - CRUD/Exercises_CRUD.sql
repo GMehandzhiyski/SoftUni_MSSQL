@@ -64,4 +64,17 @@ SELECT [FirstName], [LastName]
 FROM [Employees]
 WHERE [DepartmentId] != 4
 
+--15.
+SELECT *
+FROM [Employees]
+	ORDER BY [Salary] DESC,
+		[FirstName] ASC,
+		[LastName] DESC,
+		[MiddleName] ASC
 
+--16.
+CREATE VIEW "V_EmployeesSalaries" AS
+(
+	SELECT [FirstName], [LastName], [Salary]
+	FROM [Employees]
+)
