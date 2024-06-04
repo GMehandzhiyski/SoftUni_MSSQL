@@ -89,3 +89,10 @@ CREATE VIEW "V_EmployeeNameJobTitle"  AS
 --18.
 SELECT DISTINCT [JobTitle]
 FROM [Employees]
+
+--19.
+SELECT TOP(10)*
+FROM [Projects]
+ORDER BY [StartDate],
+			[Name]
+		
