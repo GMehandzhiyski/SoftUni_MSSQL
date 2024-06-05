@@ -92,3 +92,30 @@ INSERT INTO [StudentsExams]
 			 (2,103)
 	
 select * from StudentsExams
+
+--04.
+CREATE TABLE [Teachers]
+(
+	[TeacherID] INT PRIMARY KEY IDENTITY(101,1),
+	[Name] VARCHAR(30),
+	[ManagerID] INT FOREIGN KEY REFERENCES [Teachers]([TeacherID])
+
+)
+
+INSERT INTO [Teachers]
+	VALUES('John',NULL),
+			('Maya',NULL),
+			('Silvia',NULL),
+			('Ted',NULL),
+			('Mark',NULL),
+			('Greta',NULL)
+UPDATE[Teachers]
+Set[ManagerID] = 106
+WHERE [TeacherID] IN (102,103)
+UPDATE[Teachers]
+Set[ManagerID] = 105
+WHERE [TeacherID] IN (104)
+UPDATE[Teachers]
+Set[ManagerID] = 101
+WHERE [TeacherID] IN (105, 106)
+SELECT * FROM Teachers
