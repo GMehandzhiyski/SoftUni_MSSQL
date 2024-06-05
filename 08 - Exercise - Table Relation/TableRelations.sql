@@ -119,3 +119,47 @@ UPDATE[Teachers]
 Set[ManagerID] = 101
 WHERE [TeacherID] IN (105, 106)
 SELECT * FROM Teachers
+
+--05.
+CREATE TABLE[ItemTypes]
+(
+	[ItemTypeID] INT PRIMARY KEY IDENTITY,
+	[Name] VARCHAR(30)
+)
+
+CREATE TABLE[Items]
+(
+	[ItemID] INT PRIMARY KEY IDENTITY,
+	[Name] VARCHAR(30),
+	[ItemTypeID] INT FOREIGN KEY REFERENCES [ItemTypes](ItemTypeID)
+)
+
+CREATE TABLE[Cities]
+(
+	[CityID] INT PRIMARY KEY IDENTITY,
+	[Name] VARCHAR(30)
+)
+
+CREATE TABLE[Customers]
+(
+	[CustomerID] INT PRIMARY KEY IDENTITY,
+	[Name] VARCHAR(30),
+	[Birthday] DATETIME2,
+	[CityID] INT FOREIGN KEY REFERENCES [Cities](CityID)
+)
+
+CREATE TABLE[Orders]
+(
+	[OrderID] INT PRIMARY KEY IDENTITY,
+	[CustomerID] INT FOREIGN KEY REFERENCES [Customers]([CustomerID])
+)
+
+CREATE TABLE[OrderItems]
+(
+	[OrderID] INT FOREIGN KEY REFERENCES [Orders](OrderID),
+	[ItemID] INT FOREIGN KEY REFERENCES [Items](ItemID)
+	CONSTRAINT PK_OrderItems PRIMARY KEY([OrderID],[ItemID])
+)
+
+
+--DROP TABLE[ItemTypeID]
