@@ -199,7 +199,11 @@ CREATE TABLE[Payments]
 	[StudentID] INT FOREIGN KEY REFERENCES [Students](StudentID)
 )
 
+--09.
+USE Geography
 
-
-
-
+SELECT [MountainRange], [PeakName], [Elevation]
+FROM [Peaks]
+JOIN [Mountains] ON Peaks.MountainId = Mountains.Id
+WHERE MountainRange = 'Rila'
+ORDER BY Elevation DESC
