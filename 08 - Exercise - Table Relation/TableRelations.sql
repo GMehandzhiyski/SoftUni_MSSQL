@@ -162,4 +162,44 @@ CREATE TABLE[OrderItems]
 )
 
 
---DROP TABLE[ItemTypeID]
+--06.
+
+CREATE TABLE[Majors]
+(
+	[MajorID] INT PRIMARY KEY IDENTITY,
+	[Name] VARCHAR(30)
+)
+
+CREATE TABLE[Students]
+(
+	[StudentID] INT PRIMARY KEY IDENTITY,
+	[StudentNumber] VARCHAR(20),
+	[StudentName] VARCHAR(20),
+	[MajorID] INT FOREIGN KEY REFERENCES[Majors](MajorID)
+)
+
+CREATE TABLE[Subjects]
+(
+	[SubjectID] INT PRIMARY KEY IDENTITY,
+	[SubjectName] VARCHAR(30)
+)
+
+CREATE TABLE[Agenda]
+(
+	[StudentID] INT FOREIGN KEY REFERENCES [Students]([StudentID]),
+	[SubjectID] INT FOREIGN KEY REFERENCES [Subjects]([SubjectID]),
+	CONSTRAINT PK_Agenda PRIMARY KEY([StudentID],[SubjectID])
+)
+
+CREATE TABLE[Payments]
+(
+	[PaymentID] INT PRIMARY KEY IDENTITY,
+	[PaymentDate] DATETIME2,
+	[PaymentAmouont] DECIMAL(10,2),
+	[StudentID] INT FOREIGN KEY REFERENCES [Students](StudentID)
+)
+
+
+
+
+
