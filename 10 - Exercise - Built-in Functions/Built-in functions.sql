@@ -88,3 +88,11 @@ LOWER(CONCAT(SUBSTRING([PeakName], 1, LEN([PeakName])-1),[RiverName])) AS Mix
 FROM [Peaks], [Rivers]
 WHERE RIGHT([PeakName], 1) = LEFT([RiverName],1)
 ORDER BY Mix
+
+
+USE [Diablo]
+--14.
+SELECT TOP 50 [Name], FORMAT([Start], 'yyyy-MM-dd') AS [Start]
+FROM [Games]
+WHERE DATEPART(YEAR,[Start]) BETWEEN 2011 AND 2012
+ORDER BY [Start], [Name]
