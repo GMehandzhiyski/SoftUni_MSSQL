@@ -100,3 +100,9 @@ ORDER BY [Start], [Name]
 SELECT [UserName], SUBSTRING([Email], (CHARINDEX('@',[Email])+1), LEN([Email])) AS [EmailProveder]
 FROM [Users]
 ORDER BY [EmailProveder], [UserName]
+
+--15.
+SELECT [UserName], [IpAddress]
+FROM [Users]
+WHERE [IpAddress] LIKE '___.1%.%.___'
+ORDER BY [UserName]
