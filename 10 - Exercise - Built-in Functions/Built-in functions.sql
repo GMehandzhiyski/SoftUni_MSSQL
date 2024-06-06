@@ -21,3 +21,10 @@ WHERE [DepartmentID] IN (3, 10) AND
 SELECT [FirstName], [LastName]
 FROM [Employees]
 WHERE  [JobTitle] NOT LIKE '%engineer%'
+
+--05.
+SELECT [Name]
+FROM [Towns]
+WHERE LEN([Name]) IN (5,6)
+ORDER BY [Name]
+
