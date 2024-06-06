@@ -33,3 +33,9 @@ SELECT [TownID], [Name]
 FROM [Towns]
 WHERE [Name] LIKE '[MKBE]%'
 ORDER BY [Name]
+
+--07.
+SELECT [TownID], [Name]
+FROM [Towns]
+WHERE [Name] NOT LIKE '[RBD]%'
+ORDER BY [Name]
