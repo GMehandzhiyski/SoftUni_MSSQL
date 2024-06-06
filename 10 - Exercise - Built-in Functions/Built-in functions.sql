@@ -83,8 +83,7 @@ WHERE [CountryName] LIKE '%A%A%A%'
 ORDER BY [IsoCode]
 
 --13.
-SELECT  [PeakName], [RiverName],
-LOWER(CONCAT(SUBSTRING([PeakName], 1, LEN([PeakName])-1),[RiverName])) AS Mix
+SELECT  [PeakName], [RiverName], LOWER(CONCAT(SUBSTRING([PeakName], 1, LEN([PeakName])-1),[RiverName])) AS Mix
 FROM [Peaks], [Rivers]
 WHERE RIGHT([PeakName], 1) = LEFT([RiverName],1)
 ORDER BY Mix
@@ -96,3 +95,8 @@ SELECT TOP 50 [Name], FORMAT([Start], 'yyyy-MM-dd') AS [Start]
 FROM [Games]
 WHERE DATEPART(YEAR,[Start]) BETWEEN 2011 AND 2012
 ORDER BY [Start], [Name]
+
+--15.
+SELECT [UserName], SUBSTRING([Email], (CHARINDEX('@',[Email])+1), LEN([Email])) AS [EmailProveder]
+FROM [Users]
+ORDER BY [EmailProveder], [UserName]
