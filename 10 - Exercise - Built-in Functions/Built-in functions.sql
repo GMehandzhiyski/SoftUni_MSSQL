@@ -125,3 +125,10 @@ SELECT [Name] AS [Game],
 FROM [Games]
 ORDER BY [Name], [Duration], [Part of the Day]
 
+--18.
+USE [Orders]
+
+SELECT [ProductName], [OrderDate],
+		[Pay Due] = DATEADD(DAY,3, [OrderDate] ),
+		[Deliver Due] = DATEADD(MONTH, 1, [OrderDate])
+FROM [Orders]
