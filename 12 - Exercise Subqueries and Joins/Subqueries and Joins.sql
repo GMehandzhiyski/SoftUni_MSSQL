@@ -41,3 +41,11 @@ FROM
 	JOIN [Towns] AS t ON t.TownID = a.TownID
 ORDER BY [FirstName], [LastName]
 
+--03.
+SELECT 
+	e.[EmployeeID], e.[FirstName], e.[LastName], d.[Name] AS [DepartmentName]
+FROM
+	[Employees] AS e
+	JOIN [Departments] AS d ON e.DepartmentID = d.DepartmentID
+WHERE d.[Name] = 'Sales'
+ORDER BY e.EmployeeID
