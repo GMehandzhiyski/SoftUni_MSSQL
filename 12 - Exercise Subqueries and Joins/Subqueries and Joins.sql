@@ -67,7 +67,8 @@ FROM
 	LEFT JOIN [EmployeesProjects] AS ep ON e.EmployeeID = ep.EmployeeID
 	LEFT JOIN [Projects] AS p ON ep.ProjectID = p.ProjectID
 WHERE ep.ProjectID IS NULL
-ORDER BY e.[EmployeeID]
+ORDER BY 
+	e.[EmployeeID]
 
 --06.
 SELECT
@@ -77,7 +78,8 @@ FROM
 	JOIN [Departments] AS d ON e.DepartmentID = d.DepartmentID
 WHERE e.[HireDate] > '1999-01-01'
 		AND d.[Name] IN ('Sales', 'Finance')
-ORDER BY e.[HireDate]
+ORDER BY 
+	e.[HireDate]
 
 --07.
 SELECT TOP 5
@@ -88,7 +90,8 @@ FROM
 	JOIN [Projects] AS p ON ep.ProjectID = p.ProjectID
 WHERE p.[StartDate] > '2002-08-13'
 		AND p.[EndDate] IS NULL
-ORDER BY e.[EmployeeID]
+ORDER BY 
+	e.[EmployeeID]
 
 --08.
 SELECT
@@ -111,4 +114,28 @@ FROM
 	[Employees] AS e
 	JOIN [Employees] AS em ON e.ManagerID = em.EmployeeID
 WHERE e.ManagerID IN (3, 7)
-ORDER BY e.[EmployeeID]
+ORDER BY
+	e.[EmployeeID]
+
+--10.
+SELECT TOP 50
+	e.[EmployeeID],
+	CONCAT_WS(' ', e.[FirstName], e.[LastName]) AS [EmployeeName],
+	CONCAT_WS(' ', em.[FirstName], em.[LastName] ) AS [ManagerName],
+	d.[Name]
+FROM
+	[Employees] AS e
+	JOIN [Employees] AS em ON e.[ManagerID] = em.[EmployeeID]
+	JOIN [Departments] AS d ON e.[DepartmentID] = d.[DepartmentID]
+ ORDER BY 
+	e.EmployeeID
+
+--11.
+SELECT TOP 1
+	AVG(e.[Salary]) AS [MinAverageSalary]
+FROM
+	[Employees] AS e
+	JOIN [Departments] AS d ON e.DepartmentID = d.DepartmentID
+GROUP BY d.DepartmentID
+ORDER BY
+	[MinAverageSalary]
