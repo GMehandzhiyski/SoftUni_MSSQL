@@ -103,3 +103,12 @@ FROM
 	JOIN [Projects] AS p ON ep.ProjectID = p.ProjectID
 WHERE e.[EmployeeID] = 24
 		
+--09.
+SELECT 
+	e.[EmployeeID], e.[FirstName], em.[EmployeeID] AS [ManagerID], em.[FirstName] AS [ManagerName]  
+
+FROM
+	[Employees] AS e
+	JOIN [Employees] AS em ON e.ManagerID = em.EmployeeID
+WHERE e.ManagerID IN (3, 7)
+ORDER BY e.[EmployeeID]
