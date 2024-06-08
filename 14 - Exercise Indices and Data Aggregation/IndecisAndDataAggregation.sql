@@ -152,8 +152,82 @@ WHERE [DepartmentID] IN (2, 5, 7)
 GROUP BY
 	[DepartmentID]
 
-	
+--15.
+SELECT * INTO RichPeople	
+FROM
+	[Employees]
+WHERE Salary > 30000
 
+DELETE 
+FROM
+	[RichPeople]
+WHERE [ManagerID] = 42
+
+UPDATE [RichPeople]
+SET [Salary] = [Salary] + 5000
+FROM 
+	[RichPeople]
+WHERE [DepartmentID] = 1
+
+SELECT
+	[DepartmentID],
+	AVG([Salary]) AS [AverageSalary]
+FROM
+	[RichPeople]
+GROUP BY
+		[DepartmentID]
+
+--16.
+SELECT
+	[DepartmentID],
+	MAX([Salary]) AS [MaxSalary]
+FROM
+	[Employees]
+GROUP BY
+	[DepartmentID]
+HAVING 
+	MAX([Salary])  NOT BETWEEN 30000 AND 70000
+
+--17.
+SELECT 
+	COUNT(*) AS [Count]
+FROM
+	[Employees]
+WHERE [ManagerID] IS NULL
+
+--18.
+SELECT 
+	[DepartmentID],
+	MAX([Salary]) AS [ThirdHighestSalary]
+FROM
+(
+	SELECT 
+		[DepartmentID],
+		[Salary],
+		DENSE_RANK() OVER (PARTITION BY [DepartmentID] ORDER BY [Salary] DESC) AS [Rank]
+	FROM
+		[Employees]
+) AS SUBQUERY
+WHERE SUBQUERY.[Rank] = 3
+GROUP BY
+	[DepartmentID]
+
+SELECT 
+    [DepartmentID],
+    MAX([Salary]) AS [ThirdHighestSalary]
+FROM
+(
+    SELECT 
+        [DepartmentID],
+        [Salary],
+        DENSE_RANK() OVER (PARTITION BY [DepartmentID] ORDER BY [Salary] DESC) AS [Rank]
+    FROM
+        [Employees]
+) AS SUBQUERY
+WHERE SUBQUERY.[Rank] = 3
+GROUP BY [DepartmentID];
+
+SELECT[DepartmentID]FROM[RichPeople]
 SELECT*FROM[Employees]
 
 
