@@ -110,6 +110,27 @@ FROM
 GROUP BY
 	[FirstLetter]
 
+--11.
+SELECT
+	[DepositGroup],
+	[IsDepositExpired],
+	AVG([DepositInterest])
+FROM
+	[WizzardDeposits]
+WHERE [DepositStartDate] > '1985-01-01' 
+GROUP BY 
+	[DepositGroup],
+	[IsDepositExpired]
+ORDER BY [DepositGroup] DESC,
+			[IsDepositExpired]
+
+
+--PART 2 - Queries for SoftUni Database
+USE [SoftUni]
+GO
+	
+
+
 
 
 select * from[WizzardDeposits]
