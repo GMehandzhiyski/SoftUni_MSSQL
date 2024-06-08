@@ -95,6 +95,21 @@ FROM
 ) AS NestedQuery
 GROUP BY [AgeGroup]
 	
+--10.
+SELECT 
+	[FirstLetter]
+FROM
+(
+	SELECT 
+		SUBSTRING(FirstName, 1, 1) AS [FirstLetter]
+	FROM
+		[WizzardDeposits]
+	WHERE 
+		[DepositGroup] = 'Troll Chest'
+) AS SUBQUERY
+GROUP BY
+	[FirstLetter]
+
 
 
 select * from[WizzardDeposits]
