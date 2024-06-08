@@ -227,7 +227,29 @@ FROM
 WHERE SUBQUERY.[Rank] = 3
 GROUP BY [DepartmentID];
 
-SELECT[DepartmentID]FROM[RichPeople]
-SELECT*FROM[Employees]
+
+
+--19.
+SELECT TOP 10
+    e.FirstName,
+    e.LastName,
+    e.DepartmentID
+FROM
+    Employees AS e
+JOIN
+    (
+        SELECT
+            DepartmentID,
+            AVG(Salary) AS AvgSalary
+        FROM
+            Employees
+        GROUP BY
+            DepartmentID
+    ) AS avgSal ON e.DepartmentID = avgSal.DepartmentID
+WHERE
+    e.Salary > avgSal.AvgSalary
+ORDER BY
+    e.DepartmentID
+
 
 
