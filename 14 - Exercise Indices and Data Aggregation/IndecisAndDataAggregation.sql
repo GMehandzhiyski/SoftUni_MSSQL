@@ -128,9 +128,22 @@ ORDER BY [DepositGroup] DESC,
 --PART 2 - Queries for SoftUni Database
 USE [SoftUni]
 GO
+
+
+--13.
+SELECT 
+	[DepartmentID],
+	SUM([Salary]) AS [TotalSalary]
+FROM
+	[Employees]
+GROUP BY
+		[DepartmentID]
+ORDER BY 
+	[DepartmentID]
 	
 
+	
+
+SELECT*FROM[Employees]
 
 
-
-select * from[WizzardDeposits]
