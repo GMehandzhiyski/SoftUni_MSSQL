@@ -36,3 +36,16 @@ FROM
 	[WizzardDeposits]
 GROUP BY
 	[DepositGroup]
+
+--06.
+SELECT 
+	[DepositGroup],
+	SUM(DepositAmount) AS [TotalSum]
+FROM
+	[WizzardDeposits]
+WHERE [MagicWandCreator] = 'Ollivander family'
+GROUP BY
+	[DepositGroup]
+
+
+select * from[WizzardDeposits]
