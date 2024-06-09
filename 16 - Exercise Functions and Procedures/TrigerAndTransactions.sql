@@ -118,3 +118,15 @@ BEGIN
 		RETURN 1
 END
 
+USE [Bank]
+GO
+--08.
+CREATE PROCEDURE usp_GetHoldersFullName 
+AS
+BEGIN
+	SELECT
+		CONCAT_WS(' ', [FirstName], [LastName]) AS [Full Name]
+	FROM
+		[AccountHolders]
+END
+
