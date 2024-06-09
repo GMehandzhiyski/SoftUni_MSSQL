@@ -28,3 +28,17 @@ BEGIN
 END
 
 EXEC usp_GetEmployeesSalaryAboveNumber 50000
+
+--03
+CREATE PROCEDURE usp_GetTownsStartingWith @FirstLatter VARCHAR(MAX)
+AS
+BEGIN
+	SELECT 
+		[Name] AS [Town]
+	FROM
+		[Towns]
+	WHERE [Name] LIKE CONCAT(@FirstLatter, '%')
+END
+
+EXEC usp_GetTownsStartingWith b
+
