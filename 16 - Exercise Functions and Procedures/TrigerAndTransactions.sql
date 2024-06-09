@@ -16,8 +16,7 @@ END
 EXEC usp_GetEmployeesSalaryAbove35000
 
 --02.
-CREATE PROCEDURE usp_GetEmployeesSalaryAboveNumber 
-	@Salary DECIMAL(18, 9)
+CREATE PROCEDURE usp_GetEmployeesSalaryAboveNumber @minSalary DECIMAL(18,9)
 AS
 BEGIN
 	SELECT 
@@ -25,5 +24,7 @@ BEGIN
 		[LastName]
 	FROM
 		[Employees]
-	WHERE [Salary] <= @Salary
+	WHERE [Salary] >= @minSalary
 END
+
+EXEC usp_GetEmployeesSalaryAboveNumber 50000
