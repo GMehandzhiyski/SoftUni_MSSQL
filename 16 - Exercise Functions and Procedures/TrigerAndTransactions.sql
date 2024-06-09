@@ -59,3 +59,27 @@ BEGIN
 END
 
 EXEC usp_GetEmployeesFromTown Sofia
+
+--05.
+CREATE FUNCTION ufn_GetSalaryLevel(@salary DECIMAL(18,4)) 
+RETURNS VARCHAR(10)
+AS
+BEGIN
+	DECLARE @outputSalaryLevel VARCHAR(10)
+		IF(@salary < 30000) 
+			SET @outputSalaryLevel = 'Low'
+		ELSE IF (@salary  BETWEEN 30000 AND 50000)
+			SET @outputSalaryLevel = 'Average'
+		ELSE
+			SET @outputSalaryLevel = 'High'
+
+	RETURN @outputSalaryLevel
+END
+ 
+SELECT 
+	[FirstName],
+	[LastName],
+	[Salary],
+	dbo.ufn_GetSalaryLevel(Salary)
+FROM
+	[Employees]
