@@ -161,3 +161,21 @@ BEGIN
 	RETURN @sum * POWER((1 + @yearlyInterestRate), @numberOfYears)
 END
 
+
+--12. 
+alter PROCEDURE usp_CalculateFutureValueForAccount (@accountId INT,  @interestRate FLOAT)
+AS
+
+	DECLARE @years INT = 5
+	SELECT 
+		ah.[Id] AS [Account Id],
+		[FirstName],
+		[LastName],
+		[Balance] AS [Current Balance],
+		dbo.ufn_CalculateFutureValue(a.[Balance], @interestRate, @years) AS [Balance in 5 years]
+	FROM
+		[AccountHolders] AS ah
+		JOIN [Accounts] AS a ON  a.AccountHolderId = ah.Id
+
+
+EXec usp_CalculateFutureValueForAccount 12, 0.5
