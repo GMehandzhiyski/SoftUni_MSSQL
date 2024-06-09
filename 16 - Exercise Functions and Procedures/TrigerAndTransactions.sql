@@ -152,8 +152,12 @@ END
 
 EXEC usp_GetHoldersWithBalanceHigherThan 50000
 
-	SELECT
-		*
-	FROM
-		[AccountHolders] AS ah
-		JOIN [Accounts] AS a ON ah.Id = a.AccountHolderId
+
+--11.
+CREATE FUNCTION ufn_CalculateFutureValue  (@sum DECIMAL(10,4), @yearlyInterestRate FLOAT, @numberOfYears INT)
+RETURNS decimal(10,4)
+AS
+BEGIN
+	RETURN @sum * POWER((1 + @yearlyInterestRate), @numberOfYears)
+END
+
