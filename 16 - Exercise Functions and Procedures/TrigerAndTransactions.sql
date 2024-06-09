@@ -99,3 +99,22 @@ BEGIN
 END
 
 EXEC usp_EmployeesBySalaryLevel high
+
+--07.
+CREATE FUNCTION ufn_IsWordComprised(@setOfLetters VARCHAR(MAX), @word VARCHAR(MAX))
+RETURNS BIT
+AS
+BEGIN
+
+	DECLARE @wordLength INT = LEN(@word) 
+	DECLARE @iter INT= 1
+
+	WHILE(@iter <= @wordLength)
+		BEGIN
+			IF	(CHARINDEX(SUBSTRING(@word, @iter, 1), @setOfLetters) = 0)
+				RETURN  0
+			SET @iter += 1
+		END
+		RETURN 1
+END
+
