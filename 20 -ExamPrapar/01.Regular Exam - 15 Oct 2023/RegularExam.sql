@@ -182,3 +182,16 @@ ORDER BY
 	b.[ArrivalDate]
 
 select * from Countries
+
+--09.
+SELECT 
+	h.[Name],
+	r.[Price]
+FROM
+	[Tourists] AS t
+	JOIN [Bookings] AS b ON t.[Id] = b.[TouristId]	
+	JOIN [Hotels] AS h ON b.[HotelId] = h.[Id]
+	JOIN [Rooms] AS r ON b.[RoomId] = r.Id
+WHERE t.[Name] NOT LIKE '%EZ' 
+ORDER BY
+	r.[Price] DESC
