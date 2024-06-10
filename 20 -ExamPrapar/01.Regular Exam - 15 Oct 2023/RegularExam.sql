@@ -123,3 +123,20 @@ FROM
 ORDER BY 
 	r.[Price] DESC,
 	b.[ArrivalDate]
+
+--06.
+SELECT 
+	h.[Id],
+	[Name]
+FROM
+	[Hotels] AS h
+	JOIN [HotelsRooms] AS hr ON h.Id = hr.HotelId
+	JOIN [Rooms] AS r ON hr.RoomId = r.Id
+	JOIN Bookings B ON h.Id = b.HotelId
+WHERE r.[Type] = 'VIP Apartment'
+GROUP BY 
+	h.[Id],
+	[Name]
+ORDER BY
+	COUNT(*) DESC;
+	
