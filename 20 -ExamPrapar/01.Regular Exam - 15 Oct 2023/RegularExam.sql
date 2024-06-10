@@ -208,3 +208,26 @@ GROUP BY
 	h.[Name]
 ORDER BY 
 	[HotelRevenue] DESC
+
+
+--11. 
+CREATE OR ALTER FUNCTION udf_RoomsWithTourists(@name VARCHAR(80))
+RETURNS INT 
+AS
+BEGIN
+	DECLARE @Total INT
+
+	SELECT 
+		@Total = SUM([AdultsCount] + [ChildrenCount])
+	FROM
+		[Bookings] AS b
+		JOIN [Rooms] AS r ON b.RoomId = r.Id
+	WHERE r.[Type] = @name
+
+	RETURN @Total
+END
+
+SELECT dbo.udf_RoomsWithTourists ('Double Room')
+
+
+SELECT * FROM Bookings
