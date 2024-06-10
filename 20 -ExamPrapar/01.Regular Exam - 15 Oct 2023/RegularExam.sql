@@ -231,3 +231,30 @@ SELECT dbo.udf_RoomsWithTourists ('Double Room')
 
 
 SELECT * FROM Bookings
+
+--12.
+
+CREATE PROCEDURE usp_SearchByCountry(@country VARCHAR(80)) 
+AS 
+BEGIN
+SELECT 
+	t.[Name],
+	t.[PhoneNumber],
+	t.[Email],
+	COUNT (b.[Id]) AS [CountOfBookings]
+FROM
+	[Tourists] AS t 
+	JOIN [Countries] AS c ON t.CountryId = c.Id
+	JOIN [Bookings] AS b ON t.Id =b.TouristId
+WHERE c.[Name] = @country
+GROUP BY 
+	t.[Name],
+	t.[PhoneNumber],
+	t.[Email]
+ORDER BY 
+	t.[Name],
+	[CountOfBookings]
+
+END
+
+EXEC usp_SearchByCountry 'Greece'  
