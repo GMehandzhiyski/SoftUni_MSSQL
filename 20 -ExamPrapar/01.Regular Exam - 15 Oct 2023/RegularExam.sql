@@ -38,7 +38,7 @@ CREATE TABLE Tourists
 	[Id] INT PRIMARY KEY IDENTITY,
 	[Name] NVARCHAR(80) NOT NULL,
 	[PhoneNumber] VARCHAR(20) NOT NULL,
-	[Email] VARCHAR(80) NOT NULL,
+	[Email] VARCHAR(80),
 	[CountryId] INT FOREIGN KEY REFERENCES [Countries](Id) NOT NULL
 )
 
@@ -84,3 +84,30 @@ INSERT INTO [Bookings]
 		('2023-11-15',	'2023-11-20',	1,	2,	23,	19,	7),
 		('2023-12-05',	'2023-12-09',	4,	0,	24,	6,	4),
 		('2024-05-01',	'2024-05-07',	6,	0,	25,	14,	6)
+
+--03.
+SELECT * FROM Bookings
+UPDATE [Bookings]
+	SET [DepartureDate] = DATEADD(DAY,1, DepartureDate)
+WHERE [ArrivalDate] >='2023-12-01'
+						AND [ArrivalDate] <='2023-12-31';
+
+UPDATE [Tourists]
+	SET [Email] = NULL
+WHERE [Name] LIKE '%MA%';
+
+
+--04.
+
+DECLARE @TouristsForDelete TABLE (Id INT)
+
+INSERT INTO @TouristsForDelete (Id)
+SELECT Id
+FROM [Tourists]
+WHERE [Name]LIKE '%Smith%'
+
+DELETE FROM [Bookings]
+WHERE [TouristId] IN(SELECT Id FROM @TouristsForDelete)
+
+DELETE FROM [Tourists]
+WHERE [Id] IN(SELECT Id FROM @TouristsForDelete)
