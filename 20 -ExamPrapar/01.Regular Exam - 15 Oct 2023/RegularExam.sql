@@ -111,3 +111,15 @@ WHERE [TouristId] IN(SELECT Id FROM @TouristsForDelete)
 
 DELETE FROM [Tourists]
 WHERE [Id] IN(SELECT Id FROM @TouristsForDelete)
+
+--05.
+SELECT
+	FORMAT([ArrivalDate],'yyyy-MM-dd') AS [ArrivalDate],
+	[AdultsCount],
+	[ChildrenCount]
+FROM 
+	[Bookings] AS b
+	JOIN [Rooms] AS r ON b.RoomId = r.Id
+ORDER BY 
+	r.[Price] DESC,
+	b.[ArrivalDate]
