@@ -192,6 +192,22 @@ ORDER BY
 
 
 
+--11.
+CREATE FUNCTION udf_GetVolunteersCountFromADepartment (@VolunteersDepartment VARCHAR(80)) 
+RETURNS INT
+AS
+BEGIN
+	DECLARE @result INT
+		SELECT
+		 @result = COUNT(v.Id)
+		FROM
+			Volunteers AS v
+			JOIN VolunteersDepartments AS vd ON v.DepartmentId = vd.Id
+		WHERE vd.DepartmentName = @VolunteersDepartment
+	RETURN @result
+END
+
+SELECT dbo.udf_GetVolunteersCountFromADepartment ('Education program assistant')
 
 SELECT
 *
