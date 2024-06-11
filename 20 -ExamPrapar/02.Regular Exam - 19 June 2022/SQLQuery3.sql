@@ -63,19 +63,6 @@ INSERT INTO Animals(Name, BirthDate, OwnerId, AnimalTypeId) VALUES
 ('Tuatara', '2021-06-30', 2, 4)
 
 --03.
-SELECT
-Id
-FROM 
-	Owners
-WHERE [Name] =  'Kaloqn Stoqnov '
-
-
-SELECT 
-*
-FROM
-	Animals
-WHERE OwnerId  =  4
-
 
 UPDATE Animals
 	SET OwnerId =
@@ -87,3 +74,34 @@ UPDATE Animals
 			WHERE [Name] =  'Kaloqn Stoqnov '
 		)
 WHERE OwnerId IS NULL
+
+--04.
+SELECT Id FROM
+	VolunteersDepartments
+WHERE DepartmentName = 'Education program assistant'
+
+
+
+BEGIN TRANSACTION
+
+DELETE
+FROM 
+	Volunteers
+WHERE DepartmentId IN
+(
+SELECT Id FROM
+	VolunteersDepartments
+WHERE DepartmentName = 'Education program assistant'
+)
+
+DELETE
+FROM
+	VolunteersDepartments
+WHERE DepartmentName = 'Education program assistant'
+
+ROLLBACK TRANSACTION
+	
+SELECT 
+*
+FROM 
+	VolunteersDepartments
