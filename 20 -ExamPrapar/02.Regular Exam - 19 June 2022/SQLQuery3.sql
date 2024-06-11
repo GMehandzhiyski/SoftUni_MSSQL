@@ -174,11 +174,29 @@ WhERE v.[Address] LIKE '%Sofia%'
 ORDER BY
 	v.[Name]
 
+--10.
+SELECT 
+  an.[Name],
+  YEAR(an.BirthDate) AS BirthYear,
+  aty.AnimalType
+
+FROM 
+	Animals AS an
+	JOIN AnimalTypes AS aty ON an.AnimalTypeId = aty.Id
+WHERE OwnerId IS NULL
+		AND aty.AnimalType != 'Birds'
+		AND DATEDIFF(YEAR, an.BirthDate, '01/01/2022') < 5
+		
+ORDER BY
+	an.[Name]
+
+
+
 
 SELECT
 *
 FROM
-	Volunteers
+	AnimalTypes
 
 
 
