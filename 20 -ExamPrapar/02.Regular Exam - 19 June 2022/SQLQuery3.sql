@@ -161,14 +161,24 @@ ORDER BY
 	ow.[Name],
 	an.[Name] DESC
 	
+--09.
+SELECT
+	v.[Name],
+	v.PhoneNumber,
+	SUBSTRING(v.[Address],CHARINDEX(',',v.[Address])+2, LEN(v.[Address])) AS [Address]
+FROM
+	Volunteers AS v
+	JOIN VolunteersDepartments AS vd ON v.DepartmentId = vd.Id
+WhERE v.[Address] LIKE '%Sofia%'
+		AND VD.DepartmentName = 'Education program assistant'
+ORDER BY
+	v.[Name]
+
 
 SELECT
 *
 FROM
-AnimalsCages
-
-
-
+	Volunteers
 
 
 
