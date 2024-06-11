@@ -209,11 +209,46 @@ END
 
 SELECT dbo.udf_GetVolunteersCountFromADepartment ('Education program assistant')
 
+
+
+
+--12.
+	
+CREATE PROCEDURE usp_AnimalsWithOwnersOrNot(@AnimalName VARCHAR(80))
+AS
+BEGIN
+	IF (SELECT OwnerId FROM Animals WHERE [Name] = @AnimalName) IS NULL
+		BEGIN
+			SELECT 
+				Name,
+				'For adoption' AS OwenerName
+			FROM
+				Animals
+			WHERE Name = @AnimalName
+		END
+		ELSE
+		BEGIN 
+				SELECT  
+					an.Name,
+					ow.Name AS OwnerName
+				FROM 
+					Animals AS an
+					JOIN Owners AS ow ON an.OwnerId = ow.Id
+					WHERE an.[Name] = @AnimalName
+		END
+END
+
+
+EXEC usp_AnimalsWithOwnersOrNot 'Pumpkinseed Sunfish'
+EXEC usp_AnimalsWithOwnersOrNot 'Hippo'
+
+
+
 SELECT
 *
 FROM
-	AnimalTypes
-
+	Animals
+WHERE [Name] = 'LionN'
 
 
 
