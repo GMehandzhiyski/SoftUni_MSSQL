@@ -119,3 +119,14 @@ ORDER BY
 	[Name],
 	AnimalId,
 	DepartmentId
+
+--06.
+SELECT 
+	an.[Name],
+	aty.AnimalType,
+	FORMAT(BirthDate, 'dd.MM.yyyy') AS BirthDate
+FROM 
+	Animals AS an
+	JOIN AnimalTypes AS aty ON an.AnimalTypeId = aty.Id
+ORDER BY 
+	an.[Name]
