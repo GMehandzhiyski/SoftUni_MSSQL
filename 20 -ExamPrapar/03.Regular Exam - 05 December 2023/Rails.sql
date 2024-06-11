@@ -239,6 +239,21 @@ GROUP BY
 ORDER BY
 	t.[Name]
 
+--10.
+SELECT
+	tr.Id,
+	t.[Name],
+	ma.Details
+FROM 
+	MaintenanceRecords AS ma
+	JOIN Trains AS tr ON ma.TrainId = tr.Id
+	JOIN Towns AS t ON tr.DepartureTownId = t.Id
+WHERE ma.Details LIKE '%inspection%'
+ORDER BY
+	tr.Id
+
+
+
 
 
 
