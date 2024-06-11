@@ -172,3 +172,13 @@ SELECT
 FROM 
 	Trains
 WHERE DepartureTownId = (SELECT Id FROM Towns WHERE [Name] = 'Berlin')
+
+--05.
+SELECT 
+	DateOfDeparture,
+	Price AS TicketPrice
+FROM
+	Tickets
+ORDER BY	
+	Price,
+	DateOfDeparture DESC
