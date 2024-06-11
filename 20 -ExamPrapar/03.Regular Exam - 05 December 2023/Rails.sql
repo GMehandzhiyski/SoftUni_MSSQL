@@ -116,3 +116,59 @@ UPDATE Tickets
 		DateOfDeparture = DATEADD(DAY, 7, DateOfDeparture),
 		DateOfArrival = DATEADD(DAY, 7, DateOfArrival )
 WHERE DateOfDeparture >'2023-10-31'
+
+--04. 
+
+BEGIN TRANSACTION
+
+DELETE
+FROM
+	Tickets
+WHERE TrainId IN
+(
+	SELECT
+		Id
+	FROM
+		Trains
+	WHERE DepartureTownId = (SELECT Id FROM Towns WHERE [Name] = 'Berlin')
+)
+
+DELETE
+FROM 
+	MaintenanceRecords
+WHERE TrainId IN
+(
+	SELECT
+		Id
+	FROM
+		Trains
+	WHERE DepartureTownId = (SELECT Id FROM Towns WHERE [Name] = 'Berlin')
+)
+
+
+DELETE
+FROM 
+	TrainsRailwayStations
+WHERE TrainId IN
+(
+	SELECT
+		Id
+	FROM
+		Trains
+	WHERE DepartureTownId = (SELECT Id FROM Towns WHERE [Name] = 'Berlin')
+)
+
+DELETE
+FROM 
+	Trains
+WHERE DepartureTownId = (SELECT Id FROM Towns WHERE [Name] = 'Berlin')
+
+
+ROLLBACK TRANSACTION 
+
+
+SELECT
+	Id
+FROM 
+	Trains
+WHERE DepartureTownId = (SELECT Id FROM Towns WHERE [Name] = 'Berlin')
