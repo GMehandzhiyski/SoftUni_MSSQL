@@ -182,3 +182,16 @@ FROM
 ORDER BY	
 	Price,
 	DateOfDeparture DESC
+
+--06.
+SELECT 
+	p.[Name],
+	t.Price,
+	t.DateOfDeparture,
+	t.TrainId
+FROM 
+	Tickets AS t
+	JOIN Passengers AS p ON t.PassengerId = p.Id
+ORDER BY
+	t.Price DESC,
+	p.Name
