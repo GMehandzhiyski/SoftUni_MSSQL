@@ -208,3 +208,21 @@ WHERE tr.TrainId IS NULL
 ORDER BY
 	t.[Name],
 	r.[Name]
+
+--08.
+SELECT TOP 3
+	tr.Id AS TrainId,
+	tr.HourOfDeparture,
+	ti.Price,
+	t.[Name]
+FROM
+	Trains AS tr
+	JOIN Tickets AS ti ON tr.Id = ti.TrainId
+	JOIN Towns AS t ON tr.ArrivalTownId =  t.Id
+WHERE HourOfDeparture LIKE '08:%'
+		AND ti.Price > 50
+ORDER BY
+	ti.Price
+
+
+select *from towns
