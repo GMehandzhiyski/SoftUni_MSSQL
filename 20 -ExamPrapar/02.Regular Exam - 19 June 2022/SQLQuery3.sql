@@ -144,3 +144,36 @@ GROUP BY
 ORDER BY 
 	CountOfAnimals DESC,
 	[Owner]
+
+--08.
+SELECT
+	CONCAT_WS('-', ow.[Name], an.[Name]) as OwnersAnimals,
+	ow.PhoneNumber,
+	ac.CageId AS CageId
+
+FROM
+	Owners AS ow
+	JOIN Animals AS an ON ow.Id = an.OwnerId
+	JOIN AnimalTypes AS aty ON an.AnimalTypeId = aty.Id
+	JOIN AnimalsCages AS ac ON an.Id = ac.AnimalId
+WHERE aty.AnimalType = 'mammals'
+ORDER BY
+	ow.[Name],
+	an.[Name] DESC
+	
+
+SELECT
+*
+FROM
+AnimalsCages
+
+
+
+
+
+
+
+
+
+
+
