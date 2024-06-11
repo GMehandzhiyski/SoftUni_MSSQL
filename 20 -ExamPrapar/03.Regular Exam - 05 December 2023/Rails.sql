@@ -252,9 +252,24 @@ WHERE ma.Details LIKE '%inspection%'
 ORDER BY
 	tr.Id
 
+--11.
+CREATE FUNCTION udf_TownsWithTrains(@name VARCHAR(30)) 
+RETURNS INT
+AS
+BEGIN
+	DECLARE @result int
 
+		SELECT
+		 @result = COUNT(tr.Id)
+		FROM
+			Trains AS tr
+			JOIN Towns AS t ON (tr.ArrivalTownId = t.Id) OR (tr.DepartureTownId = t.Id)
+		WHERE t.[Name] = @name
 
+	RETURN @result
+END
 
-
-
+SELECT dbo.udf_TownsWithTrains('Paris')
 select *from towns
+
+--12.
