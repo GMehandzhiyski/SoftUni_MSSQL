@@ -130,3 +130,17 @@ FROM
 	JOIN AnimalTypes AS aty ON an.AnimalTypeId = aty.Id
 ORDER BY 
 	an.[Name]
+
+--07.
+SELECT top 5
+	 ow.[Name] AS [Owner],
+	COUNT(an.[Name]) AS CountOfAnimals
+FROM
+	Owners AS ow
+	JOIN Animals AS an ON ow.Id = an.OwnerId
+--WHERE [ow.Name] = 'Kaloqn Stoqnov' 
+GROUP BY
+	ow.[Name]
+ORDER BY 
+	CountOfAnimals DESC,
+	[Owner]
