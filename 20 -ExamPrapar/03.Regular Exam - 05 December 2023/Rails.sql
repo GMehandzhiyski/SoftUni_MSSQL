@@ -224,5 +224,22 @@ WHERE HourOfDeparture LIKE '08:%'
 ORDER BY
 	ti.Price
 
+--09.
+SELECT 
+	t.[Name] AS TownName,
+	COUNT(t.Id) AS PassengersCount
+FROM 
+	Passengers AS pa
+	JOIN Tickets AS ti ON pa.Id = ti.PassengerId
+	JOIN Trains AS tr ON ti.TrainId = tr.Id
+	JOIN Towns AS t ON tr.ArrivalTownId = t.Id
+WHERE ti.Price > 76.99
+GROUP BY
+	t.[Name]
+ORDER BY
+	t.[Name]
+
+
+
 
 select *from towns
