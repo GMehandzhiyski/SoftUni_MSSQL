@@ -80,8 +80,6 @@ SELECT Id FROM
 	VolunteersDepartments
 WHERE DepartmentName = 'Education program assistant'
 
-
-
 BEGIN TRANSACTION
 
 DELETE
@@ -105,3 +103,19 @@ SELECT
 *
 FROM 
 	VolunteersDepartments
+
+
+
+--05.
+SELECT 
+	[Name] ,
+	PhoneNumber,
+	[Address],
+	AnimalId,
+	DepartmentId
+FROM
+	Volunteers
+ORDER BY
+	[Name],
+	AnimalId,
+	DepartmentId
