@@ -109,3 +109,10 @@ INSERT INTO Tickets(Price,	DateOfDeparture,	DateOfArrival,	TrainId,	PassengerId)
 		(95.00	,'2023-09-02',	'2023-09-03',	40,	22)
 
 SELECT * FROM Tickets
+
+--03.
+UPDATE Tickets
+	SET
+		DateOfDeparture = DATEADD(DAY, 7, DateOfDeparture),
+		DateOfArrival = DATEADD(DAY, 7, DateOfArrival )
+WHERE DateOfDeparture >'2023-10-31'
