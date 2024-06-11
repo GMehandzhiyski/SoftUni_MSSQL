@@ -62,3 +62,28 @@ INSERT INTO Animals(Name, BirthDate, OwnerId, AnimalTypeId) VALUES
 ('Hamadryas Baboon', '2017-11-02', NULL, 1),
 ('Tuatara', '2021-06-30', 2, 4)
 
+--03.
+SELECT
+Id
+FROM 
+	Owners
+WHERE [Name] =  'Kaloqn Stoqnov '
+
+
+SELECT 
+*
+FROM
+	Animals
+WHERE OwnerId  =  4
+
+
+UPDATE Animals
+	SET OwnerId =
+		(
+			SELECT
+				Id
+			FROM 
+				Owners
+			WHERE [Name] =  'Kaloqn Stoqnov '
+		)
+WHERE OwnerId IS NULL
