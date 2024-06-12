@@ -197,3 +197,20 @@ ORDER BY
 	SUBSTRING(t.Name, CHARINDEX(' ',t.Name)+1, LEN(t.Name))
 
 SELECT * FROM Categories
+
+--11.
+CREATE FUNCTION udf_GetTouristsCountOnATouristSite (@Site VARCHAR(180)) 
+RETURNS INT
+AS
+BEGIN
+	DECLARE @result INT
+	SELECT 
+		@result  = COUNT(t.Id)
+	FROM 
+	 Tourists AS t
+		JOIN SitesTourists AS st ON t.Id = st.TouristId
+		JOIN Sites AS s ON st.SiteId = s.Id
+	WHERE s.Name = @Site
+	RETURN @result
+END
+SELECT dbo.udf_GetTouristsCountOnATouristSite ('Gorge of Erma River')
