@@ -214,3 +214,59 @@ BEGIN
 	RETURN @result
 END
 SELECT dbo.udf_GetTouristsCountOnATouristSite ('Gorge of Erma River')
+
+--12.
+
+BEGIN TRANSACTION
+
+
+CREATE PROCEDURE usp_AnnualRewardLottery(@TouristName VARCHAR(120))
+AS
+BEGIN
+	IF (SELECT COUNT(t.Id) FROM 
+					Sites AS s
+					JOIN SitesTourists AS st ON s.Id = st.SiteId
+					JOIN Tourists AS t ON st.TouristId = t.Id
+				WHERE t.Name = @TouristName) >= 100
+		BEGIN
+				UPDATE Tourists
+					Set Reward = 'Gold badge'
+				WHERE Name = @TouristName
+					
+			
+		END
+	ELSE IF (SELECT COUNT(t.Id) FROM 
+					Sites AS s
+					JOIN SitesTourists AS st ON s.Id = st.SiteId
+					JOIN Tourists AS t ON st.TouristId = t.Id
+				WHERE t.Name = @TouristName) >= 50
+		BEGIN
+			UPDATE Tourists
+					Set Reward = 'Silver badge'
+				WHERE Name = @TouristName
+					
+		END
+	ELSE IF (SELECT COUNT(t.Id) FROM 
+					Sites AS s
+					JOIN SitesTourists AS st ON s.Id = st.SiteId
+					JOIN Tourists AS t ON st.TouristId = t.Id
+				WHERE t.Name = @TouristName) >= 25
+		BEGIN 
+				UPDATE Tourists
+					Set Reward = 'Bronze badge'
+				WHERE Name = @TouristName
+					
+		END
+SELECT Name, Reward FROM Tourists
+WHERE Name = @TouristName
+END
+
+ROLLBACK TRANSACTION
+
+SELECT 
+	COUNT(t.Id)
+FROM 
+	Sites AS s
+	JOIN SitesTourists AS st ON s.Id = st.SiteId
+	JOIN Tourists AS t ON st.TouristId = t.Id
+		WHERE t.Name = 'Zac Walsh'
