@@ -106,10 +106,18 @@ WHERE Id IN (SELECT Id FROM BonusPrizes WHERE Name = 'Sleeping bag ')
 ROLLBACK TRANSACTION
 
 
-SELECT* FROM TouristsBonusPrizes
-
+--05.
 SELECT
-Id
+	Name,
+	Age,
+	PhoneNumber,
+	Nationality
 FROM
-	BonusPrizes
-WHERE Name = 'Sleeping bag '
+Tourists
+ORDER BY
+	Nationality,
+	Age DESC,
+	Name 
+
+--06.
+
