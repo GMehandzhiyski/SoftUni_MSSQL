@@ -90,3 +90,26 @@ UPDATE Sites
 	SET Establishment = '(not defined)'
 WHERE Establishment IS NULL
 ROLLBACK TRANSACTION
+
+--04.
+BEGIN TRANSACTION
+
+DELETE
+TouristsBonusPrizes
+WHERE BonusPrizeId IN (SELECT Id FROM BonusPrizes WHERE Name = 'Sleeping bag ')
+
+DELETE
+BonusPrizes
+WHERE Id IN (SELECT Id FROM BonusPrizes WHERE Name = 'Sleeping bag ')
+
+
+ROLLBACK TRANSACTION
+
+
+SELECT* FROM TouristsBonusPrizes
+
+SELECT
+Id
+FROM
+	BonusPrizes
+WHERE Name = 'Sleeping bag '
