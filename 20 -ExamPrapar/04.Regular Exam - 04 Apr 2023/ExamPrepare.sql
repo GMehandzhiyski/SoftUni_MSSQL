@@ -145,3 +145,14 @@ Clients
 WHERE NumberVAT LIKE 'IT%'
 
 ROLLBACK TRANSACTION
+
+
+--05.
+SELECT
+	Number,
+	Currency
+FROM 
+	Invoices
+ORDER BY
+	Amount DESC,
+	DueDate
