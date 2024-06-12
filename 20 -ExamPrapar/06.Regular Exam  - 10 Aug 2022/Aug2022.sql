@@ -166,3 +166,17 @@ WHERE l.Name NOT LIKE '[BMD]%'
 				AND s.Establishment LIKE '%BC'
 ORDER BY
 	s.Name
+
+--09.
+SELECT 
+	t.Name,
+	t.Age,
+	t.PhoneNumber,
+	t.Nationality,
+	ISNULL(bp.Name, '(no bonus prize)')
+FROM
+	Tourists AS t
+	LEFT JOIN TouristsBonusPrizes AS tb ON t.Id = tb.TouristId
+	LEFT JOIN BonusPrizes AS bp ON tb.BonusPrizeId = bp.Id
+ORDER BY
+	t.Name
