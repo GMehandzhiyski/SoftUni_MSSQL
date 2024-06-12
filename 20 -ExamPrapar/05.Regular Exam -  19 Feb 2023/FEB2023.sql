@@ -168,3 +168,19 @@ WHERE (b.Rating > 7.00 AND b.[Name] LIKE '%a%')
 ORDER BY
 	b.[Name],
 	b.Rating DESC
+
+--09.
+SELECT 
+	CONCAT_WS(' ', c.FirstName, c.LastName) AS FullName,
+	c.Email,
+	MAX(b.Rating)
+FROM 
+	Creators AS c
+	JOIN CreatorsBoardgames AS cb ON c.Id = cb.CreatorId
+	JOIN Boardgames AS b ON cb.BoardgameId = B.Id
+WHERE c.Email LIKE '%.com'
+GROUP BY
+	CONCAT_WS(' ', c.FirstName, c.LastName),
+	c.Email
+ORDER BY
+	CONCAT_WS(' ', c.FirstName, c.LastName)
