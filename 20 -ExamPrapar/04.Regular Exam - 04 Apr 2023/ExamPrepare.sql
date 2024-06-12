@@ -111,3 +111,37 @@ WHERE [Name] LIKE '%CO%'
 
 
 ROLLBACK TRANSACTION
+
+
+
+--04.
+BEGIN TRANSACTION
+
+DELETE
+ProductsClients
+WHERE ClientId IN
+			(
+				SELECT 
+					Id
+				FROM
+					Clients
+				WHERE NumberVAT LIKE 'IT%'
+			)
+
+
+DELETE
+Invoices
+WHERE ClientId IN
+			(
+				SELECT 
+					Id
+				FROM
+					Clients
+				WHERE NumberVAT LIKE 'IT%'
+			)
+
+DELETE
+Clients
+WHERE NumberVAT LIKE 'IT%'
+
+ROLLBACK TRANSACTION
