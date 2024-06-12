@@ -140,3 +140,17 @@ WHERE c.[Name] = 'Strategy Games'
 				OR c.[Name] ='Wargames' 
 ORDER BY
 	YearPublished DESC
+
+--07.
+SELECT 
+	c.Id,
+	CONCAT_WS(' ',c.FirstName, c.LastName) AS CreatorName,
+	c.Email
+FROM
+	Creators AS c
+	LEFT JOIN CreatorsBoardgames AS cb ON c.Id = cb.CreatorId
+	LEFT JOIN Boardgames AS b ON cb.BoardgameId = B.Id
+WHERE cb.BoardgameId IS NULL
+ORDER BY
+	CONCAT_WS(' ',c.FirstName, c.LastName)
+	
