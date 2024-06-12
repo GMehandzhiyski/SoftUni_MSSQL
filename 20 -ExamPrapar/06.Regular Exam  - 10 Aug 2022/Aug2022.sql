@@ -151,3 +151,18 @@ GROUP BY
 ORDER BY 
 	COUNT(s.Id) DESC,
 	l.Name
+
+--08.
+SELECT 
+	s.Name,
+	l.Name,
+	l.Municipality,
+	l.Province,
+	s.Establishment
+FROM
+	Sites AS s
+	JOIN Locations AS l ON s.LocationId = l.Id
+WHERE l.Name NOT LIKE '[BMD]%'
+				AND s.Establishment LIKE '%BC'
+ORDER BY
+	s.Name
