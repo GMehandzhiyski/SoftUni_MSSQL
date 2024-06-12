@@ -88,7 +88,7 @@ INSERT INTO Publishers([Name], AddressId, Website, Phone)
 ('BattleBooks',	13,	'www.battlebooks.com',	'+12345678907')
 
 
---03
+--03.
 BEGIN TRANSACTION
 UPDATE PlayersRanges
 	SET PlayersMax += 1 
@@ -100,16 +100,31 @@ UPDATE Boardgames
 WHERE YearPublished >= 2020
 
 ROLLBACK TRANSACTION
-SELECT
-*
-FROM 
-	Boardgames
-WHERE YearPublished >= 2020
 
+--04.
+BEGIN TRANSACTION
+DELETE 
+CreatorsBoardgames WHERE BoardgameId IN (1,16,31,47)
+DELETE 
+Boardgames WHERE PublisherId IN (1,16)
 
-SELECT
+DELETE Publishers
+WHERE AddressId IN (SELECT Id FROM Addresses WHERE Town LIKE 'L%')
+
+DELETE
+FROM Addresses
+WHERE Town LIKE 'L%'
+
+ROLLBACK TRANSACTION
+
+SELECT * FROM Boardgames WHERE PublisherId IN (1,16)
+SELECT 
 *
-FROM 
-	PlayersRanges
-WHERE PlayersMin = 1
-		AND PlayersMax = 1
+FROM
+	Addresses
+WHERE Town LIKE 'L%'
+SELECT 
+*
+FROM
+	Publishers
+WHERE AddressId IN (SELECT Id FROM Addresses WHERE Town LIKE 'L%')
