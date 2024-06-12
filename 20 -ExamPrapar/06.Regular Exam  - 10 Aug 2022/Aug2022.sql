@@ -120,4 +120,18 @@ ORDER BY
 	Name 
 
 --06.
+SELECT 
+	s.Name,
+	l.Name,
+	s.Establishment,
+	c.Name
+FROM
+	Sites AS s
+	JOIN Categories AS c ON s.CategoryId = c.Id
+	JOIN Locations AS l ON s.LocationId = l.Id
+ORDER BY
+	c.Name DESC,
+	l.Name,
+	s.Name
+
 
