@@ -220,3 +220,27 @@ BEGIN
 
 END
 SELECT dbo.udf_CreatorWithBoardgames('Bruno')
+
+--12.
+CREATE PROCEDURE usp_SearchByCategory(@category VARCHAR(120)) 
+AS
+BEGIN
+	SELECT 
+		b.[Name],
+		b.YearPublished,
+		b.Rating,
+		c.[Name],
+		p.[Name],
+		CONCAT_WS(' ', pr.PlayersMin, 'people'),
+		CONCAT_WS(' ', pr.PlayersMax, 'people')
+	FROM
+		Boardgames AS b
+		JOIN PlayersRanges AS pr ON b.PlayersRangeId = pr.Id
+		JOIN Categories AS c ON b.CategoryId = c.Id
+		JOIN Publishers AS p ON B.PublisherId = p.Id
+	WHERE c.[Name] = @category
+	ORDER BY
+			p.[Name],
+			b.YearPublished DESC
+END
+EXEC usp_SearchByCategory 'Wargames'
