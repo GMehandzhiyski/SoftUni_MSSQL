@@ -102,6 +102,7 @@ WHERE YearPublished >= 2020
 ROLLBACK TRANSACTION
 
 --04.
+
 BEGIN TRANSACTION
 DELETE 
 CreatorsBoardgames WHERE BoardgameId IN (1,16,31,47)
@@ -117,14 +118,25 @@ WHERE Town LIKE 'L%'
 
 ROLLBACK TRANSACTION
 
-SELECT * FROM Boardgames WHERE PublisherId IN (1,16)
-SELECT 
-*
-FROM
-	Addresses
-WHERE Town LIKE 'L%'
-SELECT 
-*
-FROM
-	Publishers
-WHERE AddressId IN (SELECT Id FROM Addresses WHERE Town LIKE 'L%')
+--05.
+SELECT
+	[Name],
+	Rating
+FROM 
+Boardgames
+ORDER BY
+	YearPublished,
+	[Name] DESC
+--06.
+SELECT
+	b.Id,
+	b.[Name],
+	b.YearPublished,
+	c.[Name] AS CategoryName
+FROM 
+	Boardgames AS b
+	JOIN Categories AS c ON b.CategoryId = c.Id
+WHERE c.[Name] = 'Strategy Games' 
+				OR c.[Name] ='Wargames' 
+ORDER BY
+	YearPublished DESC
