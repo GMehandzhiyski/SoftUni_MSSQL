@@ -201,3 +201,22 @@ GROUP BY
 	p.[Name]
 ORDER BY 
 	(AVG(b.Rating)) DESC
+
+--11
+CREATE FUNCTION udf_CreatorWithBoardgames(@name VARCHAR(120))
+RETURNS INT
+AS
+BEGIN
+	DECLARE @result INT
+	SELECT
+	 @result = COUNT (c.Id)
+	FROM
+		Creators AS c
+		JOIN CreatorsBoardgames AS cb ON c.Id = cb.CreatorId
+		JOIN Boardgames AS b ON cb.BoardgameId = B.Id
+	WHERE c.FirstName = @name
+
+	RETURN @result
+
+END
+SELECT dbo.udf_CreatorWithBoardgames('Bruno')
