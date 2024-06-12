@@ -156,3 +156,32 @@ FROM
 ORDER BY
 	Amount DESC,
 	DueDate
+
+--06.
+SELECT 
+	p.Id,
+	p.[Name],
+	p.Price,
+	c.Name
+FROM
+	Products AS p
+	JOIN Categories AS c ON	p.CategoryId = c.Id
+WHERE c.[Name] = 'ADR'
+		OR c.[Name] = 'Others'
+ORDER BY
+	Price DESC
+
+--07.
+SELECT
+	c.Id,
+	c.[Name],
+	CONCAT_WS(', ', CONCAT_WS(' ',a.StreetName, a.StreetNumber), a.City, a.PostCode, co.Name )
+FROM
+	Clients AS c
+	LEFT JOIN ProductsClients AS pc ON pc.ClientId = c.Id
+	LEFT JOIN Products AS p ON pc.ProductId = p.Id
+	JOIN Addresses AS a ON c.AddressId = a.Id
+	JOIN Countries AS co ON	a.CountryId = co.Id
+WHERE pc.ProductId IS NULL
+ORDER BY
+	c.[Name] 
