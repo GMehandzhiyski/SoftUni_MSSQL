@@ -86,3 +86,30 @@ INSERT INTO Publishers([Name], AddressId, Website, Phone)
 ('Agman Games',	5,	'www.agmangames.com',	'+16546135542'),
 ('Amethyst Games',	7,	'www.amethystgames.com',	'+15558889992'),
 ('BattleBooks',	13,	'www.battlebooks.com',	'+12345678907')
+
+
+--03
+BEGIN TRANSACTION
+UPDATE PlayersRanges
+	SET PlayersMax += 1 
+WHERE PlayersMin = 2
+		AND PlayersMax = 2
+
+UPDATE Boardgames
+	SET [Name] = CONCAT([Name],'V2')
+WHERE YearPublished >= 2020
+
+ROLLBACK TRANSACTION
+SELECT
+*
+FROM 
+	Boardgames
+WHERE YearPublished >= 2020
+
+
+SELECT
+*
+FROM 
+	PlayersRanges
+WHERE PlayersMin = 1
+		AND PlayersMax = 1
