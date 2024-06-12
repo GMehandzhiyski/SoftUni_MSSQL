@@ -134,4 +134,20 @@ ORDER BY
 	l.Name,
 	s.Name
 
-
+--07.
+SELECT 
+	l.Province,
+	l.Municipality,
+	l.[Name],
+	COUNT(s.Id)
+FROM
+	Sites AS s
+	JOIN Locations AS l ON s.LocationId = l.Id
+WHERE Province = 'Sofia'
+GROUP BY
+	l.Province,
+	l.Municipality,
+	l.[Name]
+ORDER BY 
+	COUNT(s.Id) DESC,
+	l.Name
