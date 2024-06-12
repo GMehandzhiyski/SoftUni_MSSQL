@@ -184,4 +184,20 @@ FROM
 	JOIN Countries AS co ON	a.CountryId = co.Id
 WHERE pc.ProductId IS NULL
 ORDER BY
-	c.[Name] 
+	c.[Name]
+	
+--08.
+SELECT TOP 7
+	i.Number,
+	i.Amount,
+	c.[Name] AS Client
+FROM
+	Invoices AS i
+	JOIN Clients AS c ON I.ClientId = c.Id
+WHERE (YEAR(IssueDate) < 2023
+		AND i.Currency = 'EUR')
+		OR (i.Amount > 500.00
+		AND c.NumberVAT LIKE 'DE%')
+ORDER BY 
+	i.Number,
+	i.Amount DESC
