@@ -85,3 +85,16 @@ INSERT INTO  Addresses(Town,	Country,	Streat,	ZIP)
 ('Athens',	'Greece',	'4342 McDonald Avenue',	10435),
 ('Zagreb',	'Croatia',	'4333 Lauren Drive',	10000)
 
+--03.
+BEGIN TRANSACTION
+
+UPDATE	Cigars 
+	SET PriceForSingleCigar = PriceForSingleCigar * 1.2	
+WHERE TastId IN (SELECT Id FROM Tastes WHERE TasteType = 'Spicy')
+
+
+UPDATE Brands
+	SET BrandDescription = 'New description'
+WHERE BrandDescription IS NULL
+
+ROLLBACK TRANSACTION
