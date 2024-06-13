@@ -197,3 +197,20 @@ GROUP BY
 ORDER BY
 	CONCAT_WS(' ' , cl.FirstName, cl.LastName)
 	
+--10.
+SELECT 
+	cl.LastName,
+	AVG(s.Length) AS CiagrLength,
+	CEILING (AVG(s.RingRange))
+FROM 
+	Clients AS cl
+	JOIN ClientsCigars AS cc ON cl.Id = cc.ClientId
+	JOIN Cigars AS ci ON  cc.CigarId = ci.Id
+	JOIN Sizes AS s ON ci.SizeId = s.Id
+GROUP BY
+	cl.LastName
+ORDER BY
+	AVG(s.Length) DESC
+
+
+
