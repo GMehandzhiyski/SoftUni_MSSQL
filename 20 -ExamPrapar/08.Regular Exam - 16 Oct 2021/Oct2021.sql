@@ -212,5 +212,20 @@ GROUP BY
 ORDER BY
 	AVG(s.Length) DESC
 
+--11.
 
-
+CREATE FUNCTION udf_ClientWithCigars(@name VARCHAR(30))
+RETURNS INT
+AS
+BEGIN
+	DECLARE @result INT
+	SELECT
+		@result = COUNT(ci.Id)
+	FROM
+		Clients AS cl
+		JOIN ClientsCigars AS cc ON cl.Id = cc.ClientId
+		JOIN Cigars AS ci ON  cc.CigarId = ci.Id
+	WHERE cl.FirstName = @name
+	RETURN @result
+END
+SELECT dbo.udf_ClientWithCigars('Betty')
