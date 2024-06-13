@@ -134,3 +134,42 @@ WHERE FlightHours IS NOT NULL
 ORDER BY
 	FlightHours DESC,
 	FirstName
+	
+	
+--07.
+SELECT TOP 20
+	fd.Id,
+	fd.Start,
+	p.FullName,
+	a.AirportName,
+	fd.TicketPrice
+
+FROM
+	FlightDestinations AS fd
+	JOIN Passengers AS p ON fd.PassengerId = p.Id
+	JOIN Airports AS a ON fd.AirportId = a.Id
+WHERE DAY(Start) % 2 = 0
+ORDER BY
+	fd.TicketPrice DESC,
+	a.AirportName
+
+--08. 
+SELECT
+	a.Id,
+	a.Manufacturer,
+	a.FlightHours,
+	COUNT(fd.Id) AS FlightDestinationsCount,
+	ROUND(AVG(fd.TicketPrice), 2)
+FROM
+	Aircraft AS a
+	JOIN FlightDestinations AS fd ON a.Id = fd.AircraftId
+GROUP BY
+	a.Id,
+	a.Manufacturer,
+	a.FlightHours
+HAVING COUNT(fd.AircraftId) >= 2
+ORDER BY
+	COUNT(fd.Id) DESC,
+	a.Id
+
+--09.
