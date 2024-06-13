@@ -142,3 +142,35 @@ WHERE t.TasteType = 'Earthy'
 ORDER BY
 	PriceForSingleCigar DESC
 
+--07.
+SELECT
+	cl.Id,
+	CONCAT_WS(' ', cl.FirstName, cl.LastName) AS ClientName,
+	cl.Email
+
+FROM 
+	Clients AS cl
+	LEFT JOIN ClientsCigars AS cc ON cl.Id = cc.ClientId
+	LEFT JOIN Cigars AS ci ON cc.CigarId = ci.Id
+WHERE cc.CigarId IS NULL
+GROUP BY
+	cl.Id,
+	cl.Email,
+	cl.FirstName, 
+	cl.LastName
+ORDER BY 
+	CONCAT_WS(' ', cl.FirstName, cl.LastName)
+	
+--08.
+SELECT  TOP 5
+	ci.CigarName,
+	ci.PriceForSingleCigar,
+	ci.ImageURL
+FROM
+	Cigars AS ci
+	JOIN Sizes AS s ON ci.SizeId = s.Id
+WHERE s.Length >= 12 AND (ci.CigarName LIKE '%ci%'
+		OR  ci.PriceForSingleCigar > 50) AND s.RingRange > 2.55
+ORDER BY
+	ci.CigarName,
+	ci.PriceForSingleCigar DESC
