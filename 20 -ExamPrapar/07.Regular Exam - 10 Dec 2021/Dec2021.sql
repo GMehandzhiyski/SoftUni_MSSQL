@@ -204,10 +204,19 @@ WHERE DATEPART(hour,fd.Start) BETWEEN 6 AND 20
 ORDER BY
 	ac.Model
 
-
-
-SELECT 
-*
-FROM
-	FlightDestinations
-
+--11.
+CREATE FUNCTION udf_FlightDestinationsByEmail(@email VARCHAR(200)) 
+RETURNS INT
+AS
+BEGIN
+	DECLARE @result INT
+		SELECT
+			@result = COUNT(PassengerId)
+		FROM 
+			FlightDestinations
+		WHERE PassengerId IN (SELECT Id FROM Passengers WHERE Email = @email)
+		RETURN @result
+END
+SELECT dbo.udf_FlightDestinationsByEmail ('PierretteDunmuir@gmail.com')
+SELECT dbo.udf_FlightDestinationsByEmail('Montacute@gmail.com')
+SELECT dbo.udf_FlightDestinationsByEmail('MerisShale@gmail.com')
