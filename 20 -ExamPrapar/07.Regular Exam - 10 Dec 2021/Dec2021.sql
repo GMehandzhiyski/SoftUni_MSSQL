@@ -105,3 +105,15 @@ BEGIN TRANSACTION
 DELETE Passengers
 WHERE LEN(FullName) <= 10 
 ROLLBACK TRANSACTION
+
+--05.
+
+SELECT
+	Manufacturer,
+	Model,
+	FlightHours,
+	Condition
+FROM
+	Aircraft
+ORDER BY
+	FlightHours DESC
