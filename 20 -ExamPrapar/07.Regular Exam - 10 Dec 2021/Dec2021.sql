@@ -173,3 +173,28 @@ ORDER BY
 	a.Id
 
 --09.
+SELECT
+	p.FullName,
+	COUNT(AircraftId)AS CountOfAircraft,
+	SUM(fd.TicketPrice)
+FROM 
+	Passengers AS p
+	JOIN FlightDestinations AS fd ON p.Id = fd.PassengerId
+	JOIN Aircraft AS a ON fd.AircraftId = a.Id
+WHERE FullName LIKE '_a%'
+GROUP BY 
+		p.FullName
+HAVING COUNT(AircraftId) >= 2
+
+
+
+
+
+
+
+
+SELECT 
+
+FROM
+	FlightDestinations
+
