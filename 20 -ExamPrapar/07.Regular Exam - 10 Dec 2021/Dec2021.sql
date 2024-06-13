@@ -186,15 +186,28 @@ GROUP BY
 		p.FullName
 HAVING COUNT(AircraftId) >= 2
 
-
-
-
-
+--10.
+SELECT 
+	ap.AirportName AS AirportName,
+	fd.Start AS DayTime,
+	fd.TicketPrice,
+	p.FullName,
+	ac.Manufacturer,
+	ac.Model
+FROM
+	Passengers AS p
+	JOIN FlightDestinations AS fd ON p.Id = fd.PassengerId
+	JOIN Airports AS ap ON fd.AirportId = ap.Id
+	JOIN Aircraft AS ac ON fd.AircraftId = ac.Id
+WHERE DATEPART(hour,fd.Start) BETWEEN 6 AND 20
+	AND fd.TicketPrice >= 2500
+ORDER BY
+	ac.Model
 
 
 
 SELECT 
-
+*
 FROM
 	FlightDestinations
 
