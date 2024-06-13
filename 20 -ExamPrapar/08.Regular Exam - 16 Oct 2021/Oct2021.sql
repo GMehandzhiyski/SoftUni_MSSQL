@@ -98,3 +98,25 @@ UPDATE Brands
 WHERE BrandDescription IS NULL
 
 ROLLBACK TRANSACTION
+
+--04.
+BEGIN TRANSACTION
+
+DELETE
+	Clients
+WHERE AddressId IN (SELECT Id FROM Addresses WHERE Country LIKE 'C%' )
+
+DELETE
+	Addresses
+WHERE Country LIKE 'C%' 
+
+ROLLBACK TRANSACTION
+
+
+
+--05.
+SELECT
+*
+FROM
+
+
