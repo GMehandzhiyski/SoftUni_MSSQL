@@ -84,3 +84,17 @@ WHERE
 
 ROLLBACK TRANSACTION
 
+
+--03.
+BEGIN TRANSACTION
+
+--SELECT
+--*
+--FROM Aircraft
+UPDATE Aircraft
+	SET Condition = 'A'
+WHERE Condition LIKE '[BC]'
+		AND (FlightHours IS NULL OR FlightHours <= 100)
+		AND [Year] >= 2013
+
+ROLLBACK TRANSACTION
