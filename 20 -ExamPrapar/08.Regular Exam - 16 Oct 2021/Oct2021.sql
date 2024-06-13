@@ -229,3 +229,27 @@ BEGIN
 	RETURN @result
 END
 SELECT dbo.udf_ClientWithCigars('Betty')
+
+--12.
+CREATE PROCEDURE usp_SearchByTaste(@taste VARCHAR(40))
+AS
+BEGIN
+	SELECT
+		ci.CigarName,
+		CONCAT('$',(ci.PriceForSingleCigar)) AS Price,
+		t.TasteType,
+		b.BrandName,
+		CONCAT_WS(' ',s.Length, 'cm') AS CigarLength,
+		CONCAT_WS(' ',s.RingRange,'cm') AS CigarRingRange
+	FROM
+		Sizes AS s 
+		JOIN Cigars AS ci ON s.Id = ci.SizeId
+		JOIN Tastes AS t ON ci.TastId = t.Id
+		JOIN Brands AS b ON ci.BrandId = b.Id
+	WHERE t.TasteType = @taste
+	ORDER BY
+		s.Length,
+		s.RingRange DESC
+END
+
+EXEC usp_SearchByTaste 'Woody'
