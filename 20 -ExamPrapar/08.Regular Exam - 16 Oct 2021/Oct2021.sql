@@ -116,7 +116,13 @@ ROLLBACK TRANSACTION
 
 --05.
 SELECT
-*
-FROM
+	CigarName,
+	PriceForSingleCigar,
+	ImageURL
 
+FROM
+	 Cigars
+ORDER BY 
+	PriceForSingleCigar,
+	CigarName DESC
 
