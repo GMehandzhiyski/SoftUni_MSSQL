@@ -117,3 +117,20 @@ FROM
 	Aircraft
 ORDER BY
 	FlightHours DESC
+
+--06.
+SELECT
+	FirstName,
+	LastName,
+	Manufacturer,
+	Model,
+	FlightHours
+FROM
+	Pilots AS p
+	JOIN PilotsAircraft AS ps on p.Id = ps.PilotId
+	JOIN Aircraft AS a ON ps.AircraftId = a.Id
+WHERE FlightHours IS NOT NULL
+		AND FlightHours < 304
+ORDER BY
+	FlightHours DESC,
+	FirstName
