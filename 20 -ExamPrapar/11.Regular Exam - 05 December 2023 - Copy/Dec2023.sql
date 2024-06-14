@@ -121,3 +121,25 @@ UPDATE Tickets
 WHERE  DateOfDeparture > '2023-10-31'
 
  ROLLBACK TRANSACTION
+
+ --04. 
+BEGIN TRANSACTION
+DELETE
+Tickets
+WHERE TrainId IN (SELECT tr.Id FROM Trains AS tr JOIN Towns tw ON tr.DepartureTownId = tw.Id WHERE tw.Name = 'Berlin')
+
+
+DELETE
+MaintenanceRecords
+WHERE TrainId IN (SELECT tr.Id FROM Trains AS tr JOIN Towns tw ON tr.DepartureTownId = tw.Id WHERE tw.Name = 'Berlin')
+
+DELETE
+TrainsRailwayStations
+WHERE TrainId IN (SELECT tr.Id FROM Trains AS tr JOIN Towns tw ON tr.DepartureTownId = tw.Id WHERE tw.Name = 'Berlin')
+
+DELETE
+Trains 
+WHERE Id IN (SELECT tr.Id FROM Trains AS tr JOIN Towns tw ON tr.DepartureTownId = tw.Id WHERE tw.Name = 'Berlin')
+
+ROLLBACK TRANSACTION
+ 
