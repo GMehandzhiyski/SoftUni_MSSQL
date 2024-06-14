@@ -183,4 +183,62 @@ ORDER BY
 	rs.Name
 
 
+--08.
+SELECT TOP 3
+	tr.Id,
+	tr.HourOfDeparture,
+	t.Price,
+	tw.Name
+FROM
+	Trains AS tr
+	JOIN Tickets AS t ON tr.Id = t.TrainId
+	JOIN Towns AS tw ON tr.ArrivalTownId = tw.Id
+WHERE HourOfDeparture LIKE '08:%'
+		AND t.Price > 50
+ORDER BY
+	t.Price
+	
+--09.
+SELECT
+	t.Name,
+	COUNT(tr.ArrivalTownId)
+FROM
+	Passengers AS p
+	JOIN Tickets AS ti ON p.Id = ti.PassengerId
+	JOIN Trains AS tr ON ti.TrainId = tr.Id
+	JOIN Towns AS t ON tr.ArrivalTownId = T.Id 
+WHERE ti.Price > 76.99
 
+GROUP BY
+		t.Name
+
+
+--10.
+SELECT 
+	tr.Id,
+	tw.Name,
+	mr.Details
+FROM
+	MaintenanceRecords AS mr
+	JOIN Trains AS tr ON mr.TrainId = tr.Id
+	JOIN Towns AS tw ON tr.DepartureTownId  = tw.Id
+WHERE Details LIKE '%inspection%'
+ORDER BY
+		tr.Id
+
+--11.
+CREATE FUNCTION udf_TownsWithTrains(@name VARCHAR(180)) 
+RETURNS INT
+AS
+BEGIN
+	DECLARE @result INT;
+	SELECT
+	@result = 	COUNT(Id)
+	FROM 
+		Trains 
+	WHERE DepartureTownId IN (SELECT Id FROM Towns WHERE Name = @name) 
+			OR ArrivalTownId IN (SELECT Id FROM Towns WHERE Name = @name)
+	RETURN @result
+END
+
+SELECT dbo.udf_TownsWithTrains('Paris')
