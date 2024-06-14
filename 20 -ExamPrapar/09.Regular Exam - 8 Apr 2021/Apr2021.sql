@@ -164,3 +164,45 @@ GROUP BY
 ORDER  BY
 	COUNT(r.Id) DESC,
 	CONCAT_WS(' ', e.FirstName,	e.LastName)
+
+--10.
+SELECT
+	ISNULL(CONCAT_WS(' ', e.FirstName, e.LastName), 'None'),
+	ISNULL(d.Name, 'None'),
+	ISNULL(c.Name, 'None'),
+	ISNULL(r.Description,'None'),
+	ISNULL(FORMAT(r.OpenDate, 'dd.MM.yyyy'), 'None'),
+	ISNULL(s.Label, 'None'),
+	ISNULL(u.Name, 'None')
+FROM
+	Reports AS r
+	JOIN Categories AS c ON R.CategoryId = c.Id
+	JOIN Employees AS e ON r.EmployeeId = e.Id
+	JOIN Departments AS d ON e.DepartmentId = d.Id
+	JOIN Status AS s ON r.StatusId = s.Id
+	JOIN Users AS u ON r.UserId = u.Id
+ORDER BY
+	 e.FirstName DESC,
+	 e.LastName DESC,
+	 d.Name,
+	 c.Name,
+	 r.Description,
+	 r.OpenDate,
+	 s.Label,
+	 u.Name
+
+--11.
+CREATE FUNCTION udf_HoursToComplete(@StartDate DATETIME, @EndDate DATETIME) 
+RETURNS INT
+AS
+BEGIN
+	DECLARE @result INT
+
+		IF	@StartDate <= 0 OR @EndDate <= 0 
+			SET @result = 0;
+		ELSE 
+			SET	@result = DATEDIFF(HOUR, @StartDate, @EndDate);
+
+	RETURN @result;
+
+END
