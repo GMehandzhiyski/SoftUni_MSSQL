@@ -138,4 +138,17 @@ ORDER BY
 	COUNT(r.id) DESC,
 	c.Name
 
-	
+--08.
+SELECT 
+	u.Username,
+	c.Name
+FROM 
+	Reports AS r
+	JOIN Categories AS c ON R.CategoryId = c.Id
+	JOIN Users AS u ON r.UserId = u.Id
+WHERE FORMAT(r.OpenDate, 'dd-MM') = FORMAT(u.Birthdate, 'dd-MM')
+ORDER BY
+	u.Username,
+	c.Name
+
+
