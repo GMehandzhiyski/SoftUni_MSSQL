@@ -151,4 +151,16 @@ ORDER BY
 	u.Username,
 	c.Name
 
-
+--09.
+SELECT
+	CONCAT_WS(' ', e.FirstName,	e.LastName),
+	COUNT(r.Id)
+FROM
+	Employees AS e
+	LEFT JOIN Reports AS r ON e.Id = r.EmployeeId
+GROUP BY
+	e.FirstName,
+	e.LastName
+ORDER  BY
+	COUNT(r.Id) DESC,
+	CONCAT_WS(' ', e.FirstName,	e.LastName)
