@@ -95,3 +95,32 @@ DELETE
 Reports
 WHERE StatusId = 4
 ROLLBACK TRANSACTION
+
+--05.
+SELECT
+	Description,
+	FORMAT(OpenDate, 'dd-MM-yyy') AS OpenDate
+FROM 
+	Reports
+WHERE EmployeeId IS NULL
+ORDER BY
+	FORMAT(OpenDate, 'dd-MM-yyy') ASC,
+	Description ASC 
+
+SELECT
+* 
+FROM 
+ Reports
+WHERE EmployeeId IS NULL
+
+--06.
+SELECT
+ r.Description,
+ c.Name
+FROM
+	Reports AS r
+	JOIN Categories AS c ON R.CategoryId = c.Id
+WHERE CategoryId IS NOT NULL
+ORDER BY 
+	Description,
+	c.Name
