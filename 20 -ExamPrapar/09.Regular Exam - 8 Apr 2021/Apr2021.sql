@@ -206,3 +206,40 @@ BEGIN
 	RETURN @result;
 
 END
+
+
+--12
+CREATE PROCEDURE usp_AssignEmployeeToReport(@EmployeeId INT, @ReportId INT) 
+AS
+BEGIN
+	DECLARE @EmployeeIdCheck INT;
+	DECLARE @ReportIdCheck INT;
+
+	SELECT
+		@EmployeeIdCheck = d.Id
+	FROM
+		Employees AS e
+		JOIN Departments AS d ON e.DepartmentId = D.Id
+	WHERE e.Id = @EmployeeId
+	SELECT
+		@ReportIdCheck = c.DepartmentId
+	FROM
+		Reports AS r
+		JOIN Categories AS c ON r.CategoryId =	c.Id
+	WHERE r.Id = @ReportId
+	
+	IF @EmployeeIdCheck <> @ReportIdCheck 
+		THROW 51000,'Employee doesn''t belong to the appropriate department!',1
+	SELECT
+		r.CategoryId
+	FROM
+		Employees AS e
+		JOIN Departments AS d ON e.DepartmentId = d.Id
+		JOIN Reports AS r ON e.Id = r.EmployeeId
+		JOIN Categories AS c ON r.CategoryId = c.Id
+		WHERE e.Id = 17 AND  c.Id = 2
+
+END
+
+EXEC usp_AssignEmployeeToReport 30, 1
+EXEC usp_AssignEmployeeToReport 17, 2
