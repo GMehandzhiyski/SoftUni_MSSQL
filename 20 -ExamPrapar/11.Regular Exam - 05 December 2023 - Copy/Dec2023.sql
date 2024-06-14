@@ -143,3 +143,13 @@ WHERE Id IN (SELECT tr.Id FROM Trains AS tr JOIN Towns tw ON tr.DepartureTownId 
 
 ROLLBACK TRANSACTION
  
+--05.
+SELECT
+	DateOfDeparture,
+	Price
+
+FROM 
+	Tickets
+ORDER BY
+	Price,
+	DateOfDeparture DESC
