@@ -167,3 +167,20 @@ ORDER BY
 	ti.Price DESC,
 	pa.Name
 
+
+--07. 
+SELECT 
+	t.Name,
+	rs.Name
+
+FROM
+	RailwayStations AS rs
+	LEFT JOIN TrainsRailwayStations AS trs ON rs.Id = trs.RailwayStationId
+	LEFT JOIN Towns AS t ON rs.TownId = t.Id
+WHERE TrainId IS NULL
+ORDER BY
+	t.Name,
+	rs.Name
+
+
+
