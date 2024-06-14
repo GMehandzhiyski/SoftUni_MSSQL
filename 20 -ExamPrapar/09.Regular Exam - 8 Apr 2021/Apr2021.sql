@@ -124,3 +124,18 @@ WHERE CategoryId IS NOT NULL
 ORDER BY 
 	Description,
 	c.Name
+
+--07.
+SELECT TOP 5
+	c.Name,
+	COUNT(r.id)
+FROM
+	Reports AS r
+	JOIN Categories AS c ON R.CategoryId = c.Id
+GROUP BY 
+	c.Name
+ORDER BY
+	COUNT(r.id) DESC,
+	c.Name
+
+	
