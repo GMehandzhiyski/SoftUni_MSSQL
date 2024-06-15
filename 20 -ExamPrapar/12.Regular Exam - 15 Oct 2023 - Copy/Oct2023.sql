@@ -98,10 +98,21 @@ ROLLBACK TRANSACTION
 
 --04.
 BEGIN TRANSACTION
-
 DELETE Bookings
 WHERE TouristId IN(SELECT Id FROM Tourists WHERE Name LIKE '%Smith%')
 
 DELETE Tourists
 WHERE Name LIKE '%Smith%'
 ROLLBACK TRANSACTION
+
+--05.
+SELECT
+	FORMAT(b.ArrivalDate, 'yyyy-MM-dd'),
+	b.AdultsCount,
+	b.ChildrenCount
+FROM
+	Bookings AS b
+	JOIN Rooms AS r ON b.RoomId = r.Id
+ORDER BY
+	r.Price DESC,
+	b.ArrivalDate
