@@ -84,3 +84,16 @@ INSERT INTO Bookings (ArrivalDate,	DepartureDate,	AdultsCount,	ChildrenCount,	To
 ('2023-12-05',	'2023-12-09',	4,	0,	24,	6,	4),
 ('2024-05-01',	'2024-05-07',	6,	0,	25,	14,	6)
 
+
+--03.
+BEGIN TRANSACTION
+UPDATE Bookings
+	SET DepartureDate = DATEADD(DAY, 1, DepartureDate)
+WHERE DepartureDate LIKE '2023-12%'
+
+UPDATE Tourists
+	SET Email = NULL
+WHERE Name LIKE '%MA%'
+
+
+ROLLBACK TRANSACTION
