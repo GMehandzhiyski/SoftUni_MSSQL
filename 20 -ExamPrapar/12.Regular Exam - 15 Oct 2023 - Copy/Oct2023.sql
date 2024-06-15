@@ -116,3 +116,60 @@ FROM
 ORDER BY
 	r.Price DESC,
 	b.ArrivalDate
+
+--06.
+SELECT
+	h.Id,
+	h.Name
+FROM
+	Hotels AS h
+	JOIN HotelsRooms AS hr ON h.Id = hr.HotelId
+	JOIN Rooms AS r ON hr.RoomId = r.Id
+	JOIN Bookings AS b ON h.Id = b.HotelId
+WHERE r.Type = 'VIP Apartment'
+GROUP BY
+	h.Id,
+	h.Name
+ORDER BY
+	COUNT(*) DESC
+
+--07.
+SELECT
+	t.Id,
+	t.Name,
+	t.PhoneNumber
+FROM
+	Tourists AS t
+	LEFT JOIN Bookings AS b ON t.Id = b.TouristId
+WHERE b.RoomId IS NULL
+ORDER BY
+	t.Name
+
+--08.
+SELECT TOP 10
+	h.Name,
+	d.Name,
+	c.Name
+FROM
+	Bookings AS b
+	JOIN Hotels AS h ON b.HotelId = h.Id
+	JOIN Destinations AS d ON h.DestinationId = d.Id
+	JOIN Countries AS c ON d.CountryId = c.Id
+WHERE ArrivalDate < '2023-12-31'
+		AND h.Id % 2 != 0
+ORDER BY
+	c.Name,
+	b.ArrivalDate
+
+--09.
+SELECT 
+	h.Name,
+	r.Price
+FROM
+	Tourists AS t
+	JOIN Bookings AS b ON t.Id = b.TouristId
+	JOIN Hotels AS h ON b.HotelId = h.Id
+	JOIN Rooms AS r ON b.RoomId = r.Id
+WHERE t.Name NOT LIKE '%EZ'
+ORDER BY
+	r.Price DESC
