@@ -75,3 +75,46 @@ CREATE TABLE ProductsClients
     FOREIGN KEY (ProductId) REFERENCES Products(Id),
     FOREIGN KEY (ClientId) REFERENCES Clients(Id)
 );
+
+
+--02.
+INSERT INTO Products(Name,	Price,	CategoryId,	VendorId)
+	VALUES
+('SCANIA Oil Filter XD01',	78.69,	1,	1),
+('MAN Air Filter XD01',	97.38,	1,	5),
+('DAF Light Bulb 05FG87',	55.00,	2,	13),
+('ADR Shoes 47-47.5',	49.85,	3,	5),
+('Anti-slip pads S',	5.87,	5,	7)
+
+INSERT INTO Invoices (Number,	IssueDate,	DueDate,	Amount,	Currency,	ClientId)
+	VALUES
+(1219992181,	'2023-03-01',	'2023-04-30',	180.96,	'BGN',	3),
+(1729252340,	'2022-11-06',	'2023-01-04',	158.18,	'EUR',	13)
+
+--03.
+BEGIN TRANSACTION
+
+UPDATE	Invoices
+	SET DueDate = '2023-04-01'
+WHERE IssueDate LIKE '2022-11%'
+
+UPDATE Clients
+	SET AddressId = (SELECT Id FROM  Addresses  WHERE StreetName = 'Industriestr')
+WHERE Name LIKE '%CO%'
+
+ROLLBACK TRANSACTION
+
+
+--04.
+BEGIN TRANSACTION
+
+DELETE ProductsClients
+WHERE ClientId = (SELECT Id FROM Clients WHERE NumberVAT LIKE 'IT%')
+
+DELETE Invoices
+WHERE ClientId = (SELECT Id FROM Clients WHERE NumberVAT LIKE 'IT%')
+
+DELETE Clients
+WHERE NumberVAT LIKE 'IT%'
+
+ROLLBACK TRANSACTION
