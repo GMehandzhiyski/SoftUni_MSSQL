@@ -202,3 +202,21 @@ GROUP BY
 ORDER BY
 	AVG(p.Price),
 	c.Name DESC
+
+--11.
+CREATE FUNCTION udf_ProductWithClients(@name VARCHAR(100)) 
+RETURNS INT
+AS
+BEGIN
+	DECLARE @result INT
+	SELECT
+		@result = COUNT(p.Id)
+	FROM
+		Clients AS c
+		JOIN ProductsClients AS pc ON c.Id = pc.ClientId
+		JOIN Products AS p ON pc.ProductId = p.Id
+	WHERE p.Name = @name
+	RETURN @result
+END
+
+SELECT dbo.udf_ProductWithClients('DAF FILTER HU12103X')
